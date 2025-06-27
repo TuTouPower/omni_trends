@@ -20,64 +20,43 @@ interface Report {
   }[]
 }
 
-interface Child {
-  id: number
-  name: string
-  pid: number
-  flash_list: Report[]
-}
-
 interface Res {
   data: {
     id: number
     name: string
     pid: number
-    child: Child[]
-  }
+    child: {
+      id: number
+      name: string
+      pid: number
+      flash_list: Report[]
+    }[]
+  }[]
 }
 
-const policy = defineSource(async () => {
+const flash = defineSource(async () => {
   const res: Res = await myFetch("https://api.mktnews.net/api/flash/host")
-  const flashList = res.data.child.filter(item => item.id === 1000)[0]?.flash_list || []
-  return flashList.map((item) => {
-    const url = `https://mktnews.net/flashDetail.html?id=${item.id}`
-    return {
-      id: item.id,
-      title: item.data.title || item.data.content,
-      url,
-    }
-  })
-})
 
-const AI = defineSource(async () => {
-  const res: Res = await myFetch("https://api.mktnews.net/api/flash/host")
-  const flashList = res.data.child.filter(item => item.id === 2000)[0]?.flash_list || []
-  return flashList.map((item) => {
-    const url = `https://mktnews.net/flashDetail.html?id=${item.id}`
-    return {
-      id: item.id,
-      title: item.data.title || item.data.content,
-      url,
-    }
-  })
-})
+  const categories = ["policy", "AI", "financial"] as const
+  const typeMap = { policy: "Policy", AI: "AI", financial: "Financial" } as const
 
-const financial = defineSource(async () => {
-  const res: Res = await myFetch("https://api.mktnews.net/api/flash/host")
-  const flashList = res.data.child.filter(item => item.id === 3000)[0]?.flash_list || []
-  return flashList.map((item) => {
-    const url = `https://mktnews.net/flashDetail.html?id=${item.id}`
-    return {
+  const allReports = categories.flatMap((category) => {
+    const flash_list = res.data.find(item => item.name === category)?.child[0]?.flash_list || []
+    return flash_list.map(item => ({ ...item, type: typeMap[category] }))
+  })
+
+  return allReports
+    .sort((a, b) => b.time.localeCompare(a.time))
+    .map(item => ({
       id: item.id,
       title: item.data.title || item.data.content,
-      url,
-    }
-  })
+      pubDate: item.time,
+      extra: { info: item.type },
+      url: `https://mktnews.net/flashDetail.html?id=${item.id}`,
+    }))
 })
 
 export default defineSource({
-  "mktnews": policy,
-  "mktnews-policy": policy,
-  "mktnews-AI": AI,
-  "mktnews-financial": financial,
+  "mktnews": flash,
+  "mktnews-flash": flash,
 })

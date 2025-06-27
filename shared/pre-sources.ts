@@ -58,18 +58,14 @@ export const originSources = {
     home: "https://coolapk.com",
   },
   "mktnews": {
-    name: "MKTNews.com",
-    column: "world",
+    name: "MKTNews",
+    column: "finance",
     home: "https://mktnews.net",
+    color: "indigo",
+    interval: Time.Realtime,
     sub: {
-      policy: {
-        title: "政策快讯",
-      },
-      AI: {
-        title: "AI快讯",
-      },
-      financial: {
-        title: "金融快讯",
+      flash: {
+        title: "快讯",
       },
     },
   },
@@ -183,6 +179,7 @@ export const originSources = {
         title: "Windows 资源",
         type: "realtime",
         interval: Time.Fast,
+        disable: true,
       },
     },
   },
@@ -339,7 +336,7 @@ export const originSources = {
     column: "tech",
     color: "slate",
     home: "https://linux.do/",
-    disable: "cf",
+    disable: true,
     sub: {
       latest: {
         title: "最新",
@@ -358,6 +355,7 @@ export const originSources = {
     column: "china",
     color: "yellow",
     home: "https://www.ghxi.com/",
+    disable: true,
   },
   "smzdm": {
     name: "什么值得买",
@@ -365,6 +363,7 @@ export const originSources = {
     color: "red",
     type: "hottest",
     home: "https://www.smzdm.com",
+    disable: true,
   },
   "nowcoder": {
     name: "牛客",
