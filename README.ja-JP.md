@@ -21,7 +21,7 @@
 > [Context Space](https://github.com/context-space/context-space) は完全オープンソースで、AI Agent の最強コンテキストエンジニアリングインフラを目指しています。現在開発中ですが、すでに多数のツール（Integration/MCP Server）を提供しており、API キーの設定やローカル環境の構築なしで直接利用できます。
 >
 
-[Context Space](https://context.space/zh/integration/newsnow_mcp) で Newsnow + AI の魔法のような体験をしてみて、ワンクリックで Cursor にインストールしてさらに快適に使えます。
+[Context Space](https://context.space/integration/newsnow_mcp) で Newsnow + AI の魔法のような体験をしてみて、ワンクリックで Cursor にインストールしてさらに快適に使えます。
 
 ![Context Space](https://cdn-bucket.tos-cn-hongkong.volces.com/resources/20250717191541392_1752750943299.png)
 

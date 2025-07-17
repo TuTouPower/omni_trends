@@ -22,7 +22,7 @@ English | [简体中文](README.zh-CN.md) | [日本語](README.ja-JP.md)
 > [Context Space](https://github.com/context-space/context-space) is fully open-source and aims to become the ultimate context engineering infrastructure for AI Agent. Currently in development, it already provides numerous tools (Integration/MCP Server) for direct use without API key configuration or local environment setup.
 >
 
-Experience the magic of Newsnow + AI at [Context Space](https://context.space/zh/integration/newsnow_mcp), and install it to Cursor with one click for an enhanced experience.
+Experience the magic of Newsnow + AI at [Context Space](https://context.space/integration/newsnow_mcp), and install it to Cursor with one click for an enhanced experience.
 
 ![Context Space](https://cdn-bucket.tos-cn-hongkong.volces.com/resources/20250717191541392_1752750943299.png)
 
