@@ -15,15 +15,24 @@
 - 根据内容源更新频率动态调整抓取间隔（最快每 2 分钟），避免频繁抓取导致 IP 被封禁
 - 支持 MCP server
 
-> [!IMPORTANT]
-> 本项目由 [Context Space](https://github.com/context-space/context-space) 赞助开发
->
->  [Context Space](https://github.com/context-space/context-space) 完全开源，立志成为最强大的 AI Agent 上下文工程基础设施，目前正在开发中，现已提供大量工具（Integration/MCP Server）直接调用，无需配置 API Key，无需配置本地环境。
->
+```json
+{
+  "mcpServers": {
+    "newsnow": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "newsnow-mcp-server"
+      ],
+      "env": {
+        "BASE_URL": "https://newsnow.busiyi.world"
+      }
+    }
+  }
+}
+```
 
-在 [Context Space](https://context.space/integration/newsnow_mcp) 体验 Newsnow + AI 带来的神奇魅力，并且可以一键安装至 Cursor，从而获得更强体验。
-
-![Context Space](https://cdn-bucket.tos-cn-hongkong.volces.com/resources/20250717191541392_1752750943299.png)
+你可以将 `BASE_URL` 修改为你的域名。
 
 ## 部署指南
 
