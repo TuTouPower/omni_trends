@@ -123,8 +123,14 @@ export interface Actionlog2 {
 }
 
 export default defineSource(async () => {
-  const url = "https://m.weibo.cn/api/container/getIndex?containerid=106003type%3D25%26t%3D3%26disable_hot%3D1%26filter_type%3Drealtimehot"
-  const res: Root = await myFetch(url)
+  const url = "https://m.weibo.cn/api/container/getIndex?containerid=106003type%3D25%26t%3D3%26disable_hot%3D1%26filter_type%3Drealtimehot&title=%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C&extparam=filter_type%3Drealtimehot%26mi_cid%3D100103%26pos%3D0_0%26c_type%3D30%26display_time%3D1540538388&luicode=10000011&lfid=231583"
+  const res: Root = await myFetch(url, {
+    headers: {
+      "referer": "https://s.weibo.com/top/summary?cate=realtimehot",
+      "mweibo-pwa": "1",
+      "x-requested-with": "XMLHttpRequest",
+    },
+  })
   return res.data.cards[0].card_group
     .filter((k, i) => i !== 0 && k.desc && !k.actionlog?.ext.includes("ads_word"))
     .map((k) => {
