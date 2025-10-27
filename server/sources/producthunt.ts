@@ -1,10 +1,10 @@
 import process from "node:process"
 import type { NewsItem } from "@shared/types"
 
-const apiKey = process.env.PRODUCTHUNT_API_TOKEN
-const token = `Bearer ${apiKey}`
 export default defineSource(async () => {
-  if (!apiKey) {
+  const apiToken = process.env.PRODUCTHUNT_API_TOKEN
+  const token = `Bearer ${apiToken}`
+  if (!apiToken) {
     throw new Error("PRODUCTHUNT_API_TOKEN is not set")
   }
   const query = `
