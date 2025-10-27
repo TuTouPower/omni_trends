@@ -35,11 +35,13 @@ export default defineSource(async () => {
       Accept: "application/json, text/plain, */*",
     },
   })
+  console.log(res)
   return res.items.map(movie => ({
     id: movie.id,
-    title: `《${movie.title}》${movie.card_subtitle}`,
+    title: movie.title,
     url: `https://movie.douban.com/subject/${movie.id}`,
     extra: {
+      info: movie.card_subtitle.split(" / ").slice(0, 3).join(" / "),
       hover: movie.card_subtitle,
     },
   }))
