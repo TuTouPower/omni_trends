@@ -35,7 +35,6 @@ export default defineSource(async () => {
       Accept: "application/json, text/plain, */*",
     },
   })
-  console.log(res)
   return res.items.map(movie => ({
     id: movie.id,
     title: movie.title,
