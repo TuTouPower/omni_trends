@@ -481,5 +481,14 @@
     "home": "https://www.douban.com",
     "color": "green",
     "interval": 600000
+  },
+  "steam": {
+    "title": "在线人数",
+    "name": "Steam",
+    "type": "hottest",
+    "column": "world",
+    "home": "https://store.steampowered.com",
+    "color": "blue",
+    "interval": 600000
   }
 }

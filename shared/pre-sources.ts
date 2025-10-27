@@ -421,6 +421,14 @@ export const originSources = {
     type: "hottest",
     home: "https://www.douban.com",
   },
+  "steam": {
+    name: "Steam",
+    column: "world",
+    title: "在线人数",
+    color: "blue",
+    type: "hottest",
+    home: "https://store.steampowered.com",
+  },
 } as const satisfies Record<string, OriginSource>
 
 export function genSources() {
