@@ -8,54 +8,38 @@ interface Report {
     pic: string
     title: string
   }
-  remark: string[]
+  remark: any[]
   hot: boolean
-  hot_start: string
-  hot_end: string
+  hot_start: string | null
+  hot_end: string | null
   classify: {
     id: number
     pid: number
     name: string
     parent: string
   }[]
+  impact: any[]
 }
 
 interface Res {
-  data: {
-    id: number
-    name: string
-    pid: number
-    child: {
-      id: number
-      name: string
-      pid: number
-      flash_list: Report[]
-    }[]
-  }[]
+  status: number
+  data: Report[]
+  message: string
 }
 
 const flash = defineSource(async () => {
-  const res: Res = await myFetch("https://api.mktnews.net/api/flash/host")
+  const res: Res = await myFetch("https://api.mktnews.net/api/flash?type=0&limit=50")
 
-  const categories = ["Policy", "AI", "financial"] as const
-  const typeMap = { Policy: "Policy", AI: "AI", financial: "Financial" } as const
-
-  const allReports = categories.flatMap((category) => {
-    const categoryData = res.data.find(item => item.name === category)
-    if (!categoryData?.child) return []
-
-    return categoryData.child.flatMap(subCategory =>
-      (subCategory.flash_list || []).map(item => ({ ...item, type: typeMap[category] })),
-    )
-  })
-
-  return allReports
-    .sort((a, b) => b.time.localeCompare(a.time))
+  return res.data
+    .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
     .map(item => ({
       id: item.id,
       title: item.data.title || item.data.content.match(/^【([^】]*)】(.*)$/)?.[1] || item.data.content,
       pubDate: item.time,
-      extra: { info: item.type, hover: item.data.content },
+      extra: {
+        info: item.important === 1 ? "Important" : undefined,
+        hover: item.data.content,
+      },
       url: `https://mktnews.net/flashDetail.html?id=${item.id}`,
     }))
 })
