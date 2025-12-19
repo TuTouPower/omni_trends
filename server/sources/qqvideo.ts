@@ -1,6 +1,6 @@
 import dayjs from "dayjs/esm"
-import { myFetch } from "#/utils/fetch.ts"
-import { defineSource } from "#/utils/source.ts"
+import { myFetch } from "#/utils/fetch"
+import { defineSource } from "#/utils/source"
 
 interface WapResp {
   data: {
@@ -138,23 +138,12 @@ const hotSearch = defineSource(async () => {
   })
 
   return resp?.data?.card?.children_list?.list?.cards?.map((item) => {
-    const uni_imgtag = JSON.parse(item?.params?.uni_imgtag)
-    // 去掉空值
-    const info = [
-      item?.params?.second_title,
-      item?.params?.topic_label,
-      uni_imgtag?.tag_2?.text,
-      uni_imgtag?.tag_4?.text,
-    ]
-      .filter(Boolean)
-      .join(" ")
     return {
       id: item?.id,
       title: item?.params?.title,
       url: getQqVideoUrl(item?.id),
       pubDate: item?.params?.publish_date ?? getTodaySlash(),
       extra: {
-        info,
         hover: item?.params?.sub_title,
       },
     }

@@ -1,4 +1,3 @@
-import dayjs from "dayjs/esm"
 import { myFetch } from "#/utils/fetch"
 import { defineSource } from "#/utils/source"
 
@@ -46,68 +45,13 @@ const hotRankList = defineSource(async () => {
   })
 
   return resp?.items[0]?.video[0]?.data.map((item) => {
-    const creator = item.creator?.map(a => a.name).join(" ")
-    const contributor = item.contributor?.map(a => a.name).join(" ")
-    const info = [item.desc, creator, contributor].filter(Boolean).join("|")
     return {
       id: item.entity_id,
       title: item.title,
       url: item.page_url,
       pubDate: item?.showDate,
       extra: {
-        info,
-        hover: item.description,
-        tag: item.tag,
-      },
-    }
-  })
-})
-
-interface WarpCartoon {
-  code: number
-  cname: string
-  items: {
-    order: number
-    channel: string
-    temp: any
-    video: {
-      basisDataUrls: string
-      title: string
-      block_id: string
-      card_source: string
-      links: any[]
-      data: VideoInfo[]
-      adverts: any[]
-      config: any[]
-    }[]
-    lib_keys: any
-  }[]
-  extData: any
-}
-
-const cartoonToday = defineSource(async () => {
-  const url = "https://mesh.if.iqiyi.com/portal/lw/v7/channel/cartoon"
-  const resp = await myFetch<WarpCartoon>(url, {
-    headers: { Referer: "https://www.iqiyi.com" },
-  })
-
-  // items[2] 为追番表数据
-  const items = resp?.items[2]
-  // 获取今天是一周的第几天
-  const weekday = dayjs().day() || 7
-  // 获取今天的追番表数据
-  const videos = items?.video[weekday - 1] // 减去1是因为数组索引从0开始
-  return videos?.data.map((item) => {
-    const creator = item.creator?.map(a => a.name).join(" ")
-    const contributor = item.contributor?.map(a => a.name).join(" ")
-    const info = [item.desc, item.dq_updatestatus, creator, contributor].filter(Boolean).join("|")
-    return {
-      id: item.entity_id,
-      title: item.title,
-      url: item.page_url,
-      pubDate: item?.showDate,
-      extra: {
-        info,
+        info: item.desc,
         hover: item.description,
         tag: item.tag,
       },
@@ -117,5 +61,4 @@ const cartoonToday = defineSource(async () => {
 
 export default defineSource({
   "iqiyi-hot-ranklist": hotRankList,
-  "iqiyi-cartoon-today": cartoonToday,
 })

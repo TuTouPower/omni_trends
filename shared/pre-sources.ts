@@ -461,13 +461,13 @@ export const originSources = {
     home: "https://v.qq.com/",
     sub: {
       "tv-hotsearch": {
-        title: "电视剧-热搜榜",
+        title: "热搜榜",
         type: "hottest",
         interval: Time.Common,
         home: "https://v.qq.com/channel/tv",
 
-      }
-    }
+      },
+    },
   },
   "iqiyi": {
     name: "爱奇艺",
@@ -480,26 +480,6 @@ export const originSources = {
         type: "hottest",
         interval: Time.Common,
         home: "https://www.iqiyi.com",
-      },
-      "cartoon-today": {
-        title: "动漫-追番表",
-        type: "hottest",
-        interval: Time.Slow,
-        home: "https://www.iqiyi.com/comic",
-      },
-    },
-  },
-  "youku": {
-    name: "优酷",
-    column: "china",
-    color: "blue",
-    home: "https://www.youku.com/ku/webhome",
-    sub: {
-      "webcomic-today": {
-        title: "动漫-追番表",
-        type: "hottest",
-        interval: Time.Slow,
-        home: "https://www.youku.com/ku/webcomic",
       },
     },
   },
