@@ -35,6 +35,7 @@ export default defineSource(async () => {
         const flagUrl = {
           新: "https://simg.s.weibo.com/moter/flags/1_0.png",
           热: "https://simg.s.weibo.com/moter/flags/2_0.png",
+          爆: "https://simg.s.weibo.com/moter/flags/4_0.png",
         }[$flag]
         hotNews.push({
           id: title,
