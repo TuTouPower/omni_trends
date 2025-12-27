@@ -97,7 +97,7 @@ const hotSearch = defineSource(async () => {
     title: k.show_name,
     url: `https://search.bilibili.com/all?keyword=${encodeURIComponent(k.keyword)}`,
     extra: {
-      icon: k.icon && proxyPicture(k.icon),
+      icon: k.icon,
     },
   }))
 })
@@ -114,7 +114,7 @@ const hotVideo = defineSource(async () => {
     extra: {
       info: `${video.owner.name} · ${formatNumber(video.stat.view)}观看 · ${formatNumber(video.stat.like)}点赞`,
       hover: video.desc,
-      icon: proxyPicture(video.pic),
+      icon: video.pic,
     },
   }))
 })
@@ -131,7 +131,7 @@ const ranking = defineSource(async () => {
     extra: {
       info: `${video.owner.name} · ${formatNumber(video.stat.view)}观看 · ${formatNumber(video.stat.like)}点赞`,
       hover: video.desc,
-      icon: proxyPicture(video.pic),
+      icon: video.pic,
     },
   }))
 })

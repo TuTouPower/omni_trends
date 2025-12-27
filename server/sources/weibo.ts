@@ -42,7 +42,7 @@ export default defineSource(async () => {
           url: `${baseurl}${href}`,
           mobileUrl: `${baseurl}${href}`,
           extra: {
-            icon: flagUrl ? { url: proxyPicture(flagUrl), scale: 1.5 } : undefined,
+            icon: flagUrl ? { url: flagUrl, scale: 1.5 } : undefined,
           },
         })
       }

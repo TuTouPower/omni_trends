@@ -24,8 +24,8 @@ git checkout -b bilibili-hot-video
 
 Add your new source to the source configuration in `/shared/pre-sources.ts`:
 
-```typescript
-"bilibili": {
+```
+  "bilibili": {
   name: "哔哩哔哩",
   color: "blue",
   home: "https://www.bilibili.com",
@@ -41,12 +41,12 @@ Add your new source to the source configuration in `/shared/pre-sources.ts`:
       type: "hottest"
     }
   }
-};
+}
 ```
 
 For a completely new source, add a new top-level entry:
 
-```typescript
+```
 "newsource": {
   name: "New Source",
   color: "blue",
@@ -65,39 +65,39 @@ Create or modify a file in the `/server/sources/` directory. If your source is r
 
 // Define interface for API response
 interface HotVideoRes {
-  code: number;
-  message: string;
-  ttl: number;
+  code: number
+  message: string
+  ttl: number
   data: {
     list: {
-      aid: number;
+      aid: number
       // ... other fields
-      bvid: string;
-      title: string;
-      pubdate: number;
-      desc: string;
-      pic: string;
+      bvid: string
+      title: string
+      pubdate: number
+      desc: string
+      pic: string
       owner: {
-        mid: number;
-        name: string;
-        face: string;
-      };
+        mid: number
+        name: string
+        face: string
+      }
       stat: {
-        view: number;
-        like: number;
-        reply: number;
+        view: number
+        like: number
+        reply: number
         // ... other stats
-      };
-    }[];
-  };
+      }
+    }[]
+  }
 }
 
 // Define source getter function
 const hotVideo = defineSource(async () => {
-  const url = "https://api.bilibili.com/x/web-interface/popular";
-  const res: HotVideoRes = await myFetch(url);
+  const url = "https://api.bilibili.com/x/web-interface/popular"
+  const res: HotVideoRes = await myFetch(url)
 
-  return res.data.list.map((video) => ({
+  return res.data.list.map(video => ({
     id: video.bvid,
     title: video.title,
     url: `https://www.bilibili.com/video/${video.bvid}`,
@@ -105,25 +105,25 @@ const hotVideo = defineSource(async () => {
     extra: {
       info: `${video.owner.name} · ${formatNumber(video.stat.view)}观看 · ${formatNumber(video.stat.like)}点赞`,
       hover: video.desc,
-      icon: proxyPicture(video.pic),
+      icon: video.pic,
     },
-  }));
-});
+  }))
+})
 
 // Helper function for formatting numbers
 function formatNumber(num: number): string {
   if (num >= 10000) {
-    return `${Math.floor(num / 10000)}w+`;
+    return `${Math.floor(num / 10000)}w+`
   }
-  return num.toString();
+  return num.toString()
 }
 
 // Export the source
 export default defineSource({
-  bilibili: hotSearch,
+  "bilibili": hotSearch,
   "bilibili-hot-search": hotSearch,
   "bilibili-hot-video": hotVideo, // Add your new source here
-});
+})
 ```
 
 For completely new sources, create a new file in `/server/sources/` named after your source (e.g., `newsource.ts`).
@@ -173,25 +173,25 @@ Each source should return an array of objects that conform to the `NewsItem` int
 
 ```typescript
 interface NewsItem {
-  id: string | number; // Unique identifier for the item
-  title: string; // Title of the news item
-  url: string; // URL to the full content
-  mobileUrl?: string; // Optional mobile-specific URL
-  pubDate?: number | string; // Publication date
+  id: string | number // Unique identifier for the item
+  title: string // Title of the news item
+  url: string // URL to the full content
+  mobileUrl?: string // Optional mobile-specific URL
+  pubDate?: number | string // Publication date
   extra?: {
-    hover?: string; // Text to display on hover
-    date?: number | string; // Formatted date
-    info?: false | string; // Additional information
-    diff?: number; // Time difference
+    hover?: string // Text to display on hover
+    date?: number | string // Formatted date
+    info?: false | string // Additional information
+    diff?: number // Time difference
     icon?:
       | false
       | string
       | {
-          // Icon for the item
-          url: string;
-          scale: number;
-        };
-  };
+        // Icon for the item
+        url: string
+        scale: number
+      }
+  }
 }
 ```
 
