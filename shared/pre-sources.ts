@@ -719,7 +719,6 @@ export const originSources = {
     color: "red",
     interval: Time.Common,
     home: "https://www.economist.com",
-    disable: true,
   },
   // ===== 财经 =====
   "techflowpost": {
@@ -728,7 +727,6 @@ export const originSources = {
     column: "finance",
     color: "purple",
     home: "https://www.techflowpost.com",
-    disable: true,
   },
   "stcn": {
     name: "证券时报",
@@ -736,7 +734,6 @@ export const originSources = {
     column: "finance",
     color: "red",
     home: "https://www.stcn.com",
-    disable: true,
   },
   // ===== 科技 =====
   "huggingface": {
@@ -752,7 +749,6 @@ export const originSources = {
     column: "tech",
     color: "red",
     home: "https://www.oschina.net",
-    disable: true,
   },
   "segmentfault": {
     name: "SegmentFault",
@@ -760,7 +756,6 @@ export const originSources = {
     column: "tech",
     color: "green",
     home: "https://segmentfault.com",
-    disable: true,
   },
   // ===== 社区 =====
   "xiaohongshu": {
@@ -769,7 +764,6 @@ export const originSources = {
     column: "china",
     color: "red",
     home: "https://www.xiaohongshu.com",
-    disable: true,
   },
 } as const satisfies Record<string, OriginSource>
 
