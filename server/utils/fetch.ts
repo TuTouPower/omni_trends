@@ -1,4 +1,11 @@
+import process from "node:process"
+import { ProxyAgent, setGlobalDispatcher } from "undici"
 import { $fetch } from "ofetch"
+
+const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY
+if (proxyUrl) {
+  setGlobalDispatcher(new ProxyAgent(proxyUrl))
+}
 
 export const myFetch = $fetch.create({
   headers: {

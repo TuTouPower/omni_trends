@@ -3,21 +3,20 @@ import type { NewsItem } from "@shared/types"
 
 const express = defineSource(async () => {
   const baseURL = "https://www.fastbull.com"
-  const html: any = await myFetch(`${baseURL}/cn/express-news`)
+  const html: string = await myFetch(`${baseURL}/cn/express-news`)
   const $ = cheerio.load(html)
-  const $main = $(".news-list")
   const news: NewsItem[] = []
-  $main.each((_, el) => {
-    const a = $(el).find(".title_name")
-    const url = a.attr("href")
-    const titleText = a.text()
-    const title = titleText.match(/【(.+)】/)?.[1] ?? titleText
-    const date = $(el).attr("data-date")
-    if (url && title && date) {
+  $(".news-list").each((_, el) => {
+    const $el = $(el)
+    const date = $el.attr("data-date")
+    const id = $el.attr("data-id")
+    const title = $el.find(".title_name").text().trim()
+    const href = $el.find(".shear_box").attr("data-href")
+    if (title && id && date) {
       news.push({
-        url: baseURL + url,
-        title: title.length < 4 ? titleText : title,
-        id: url,
+        url: href ? baseURL + href : `${baseURL}/cn/express-news`,
+        title,
+        id,
         pubDate: Number(date),
       })
     }
@@ -27,7 +26,7 @@ const express = defineSource(async () => {
 
 const news = defineSource(async () => {
   const baseURL = "https://www.fastbull.com"
-  const html: any = await myFetch(`${baseURL}/cn/news`)
+  const html: string = await myFetch(`${baseURL}/cn/news`)
   const $ = cheerio.load(html)
   const $main = $(".trending_type")
   const news: NewsItem[] = []
