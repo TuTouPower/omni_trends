@@ -3,7 +3,7 @@ import { useMedia, useUpdateEffect } from "react-use"
 
 export declare type ColorScheme = "dark" | "light" | "auto"
 
-const colorSchemeAtom = atomWithStorage("color-scheme", "dark")
+const colorSchemeAtom = atomWithStorage("color-scheme", "auto")
 
 export function useDark() {
   const [colorScheme, setColorScheme] = useAtom(colorSchemeAtom)

@@ -783,5 +783,61 @@
     "home": "https://news.qq.com",
     "color": "blue",
     "interval": 600000
+  },
+  "bbc": {
+    "name": "BBC News",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.bbc.com/news",
+    "color": "gray",
+    "interval": 600000
+  },
+  "apnews": {
+    "name": "AP News",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://apnews.com",
+    "color": "red",
+    "interval": 600000
+  },
+  "nhk": {
+    "name": "NHK World",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www3.nhk.or.jp/nhkworld",
+    "color": "blue",
+    "interval": 600000
+  },
+  "washingtonpost": {
+    "name": "华盛顿邮报",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.washingtonpost.com",
+    "color": "gray",
+    "interval": 600000
+  },
+  "aljazeera": {
+    "name": "半岛电视台",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.aljazeera.com",
+    "color": "orange",
+    "interval": 600000
+  },
+  "guardian": {
+    "name": "卫报",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.theguardian.com",
+    "color": "blue",
+    "interval": 600000
+  },
+  "huggingface": {
+    "name": "Huggingface Papers",
+    "type": "hottest",
+    "column": "tech",
+    "home": "https://huggingface.co/papers",
+    "color": "yellow",
+    "interval": 600000
   }
 }

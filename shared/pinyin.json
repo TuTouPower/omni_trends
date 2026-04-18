@@ -75,5 +75,12 @@
   "netease-music": "wangyiyunyinle",
   "weatheralarm": "tianqiyujing",
   "history": "lishijintian",
-  "qq-news": "tengxunxinwen"
+  "qq-news": "tengxunxinwen",
+  "bbc": "BBC News",
+  "apnews": "AP News",
+  "nhk": "NHK World",
+  "washingtonpost": "huashengdunyoubao",
+  "aljazeera": "bandaodianshitai",
+  "guardian": "weibao",
+  "huggingface": "Huggingface Papers"
 }
