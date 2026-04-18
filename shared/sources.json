@@ -123,15 +123,6 @@
     "interval": 600000,
     "title": "快讯"
   },
-  "36kr-renqi": {
-    "name": "36氪",
-    "type": "hottest",
-    "column": "tech",
-    "home": "https://36kr.com",
-    "color": "blue",
-    "interval": 600000,
-    "title": "人气榜"
-  },
   "douyin": {
     "name": "抖音",
     "type": "hottest",
@@ -563,5 +554,234 @@
     "color": "green",
     "interval": 1800000,
     "title": "热播榜"
+  },
+  "netease-news": {
+    "name": "网易新闻",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://news.163.com",
+    "color": "red",
+    "interval": 600000
+  },
+  "sina": {
+    "name": "新浪",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://sina.com.cn",
+    "color": "red",
+    "interval": 600000
+  },
+  "zhihu-daily": {
+    "name": "知乎日报",
+    "column": "china",
+    "home": "https://daily.zhihu.com",
+    "color": "blue",
+    "interval": 600000
+  },
+  "huxiu": {
+    "name": "虎嗅",
+    "type": "hottest",
+    "column": "tech",
+    "home": "https://www.huxiu.com",
+    "color": "orange",
+    "interval": 600000
+  },
+  "ifanr": {
+    "name": "爱范儿",
+    "column": "tech",
+    "home": "https://www.ifanr.com",
+    "color": "green",
+    "interval": 600000
+  },
+  "guokr": {
+    "name": "果壳",
+    "column": "tech",
+    "home": "https://www.guokr.com",
+    "color": "green",
+    "interval": 600000
+  },
+  "geekpark": {
+    "name": "极客公园",
+    "column": "tech",
+    "home": "https://www.geekpark.net",
+    "color": "purple",
+    "interval": 600000
+  },
+  "nytimes": {
+    "redirect": "nytimes-china",
+    "name": "纽约时报",
+    "column": "world",
+    "home": "https://cn.nytimes.com",
+    "color": "gray",
+    "interval": 1800000,
+    "title": "中文"
+  },
+  "nytimes-china": {
+    "name": "纽约时报",
+    "column": "world",
+    "home": "https://cn.nytimes.com",
+    "color": "gray",
+    "interval": 1800000,
+    "title": "中文"
+  },
+  "nytimes-global": {
+    "name": "纽约时报",
+    "column": "world",
+    "home": "https://cn.nytimes.com",
+    "color": "gray",
+    "interval": 1800000,
+    "title": "国际"
+  },
+  "csdn": {
+    "name": "CSDN",
+    "type": "hottest",
+    "column": "tech",
+    "home": "https://www.csdn.net",
+    "color": "red",
+    "interval": 600000
+  },
+  "hellogithub": {
+    "name": "HelloGitHub",
+    "column": "tech",
+    "home": "https://hellogithub.com",
+    "color": "green",
+    "interval": 600000
+  },
+  "nodeseek": {
+    "name": "NodeSeek",
+    "column": "tech",
+    "home": "https://www.nodeseek.com",
+    "color": "blue",
+    "interval": 600000
+  },
+  "hostloc": {
+    "name": "全球主机交流",
+    "column": "tech",
+    "home": "https://hostloc.com",
+    "color": "blue",
+    "interval": 600000
+  },
+  "52pojie": {
+    "name": "吾爱破解",
+    "column": "tech",
+    "home": "https://www.52pojie.cn",
+    "color": "green",
+    "interval": 600000
+  },
+  "newsmth": {
+    "name": "水木社区",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://www.newsmth.net",
+    "color": "blue",
+    "interval": 600000
+  },
+  "ngabbs": {
+    "name": "NGA",
+    "type": "hottest",
+    "column": "tech",
+    "home": "https://ngabbs.com",
+    "color": "blue",
+    "interval": 600000
+  },
+  "jianshu": {
+    "name": "简书",
+    "column": "china",
+    "home": "https://www.jianshu.com",
+    "color": "red",
+    "interval": 600000
+  },
+  "lol": {
+    "name": "英雄联盟",
+    "column": "tech",
+    "home": "https://lol.qq.com",
+    "color": "blue",
+    "interval": 600000
+  },
+  "miyoushe": {
+    "redirect": "miyoushe-genshin",
+    "name": "米游社",
+    "column": "tech",
+    "home": "https://www.miyoushe.com",
+    "color": "blue",
+    "interval": 600000,
+    "title": "原神"
+  },
+  "miyoushe-genshin": {
+    "name": "米游社",
+    "column": "tech",
+    "home": "https://www.miyoushe.com",
+    "color": "blue",
+    "interval": 600000,
+    "title": "原神"
+  },
+  "miyoushe-starrail": {
+    "name": "米游社",
+    "column": "tech",
+    "home": "https://www.miyoushe.com",
+    "color": "blue",
+    "interval": 600000,
+    "title": "星穹铁道"
+  },
+  "miyoushe-honkai": {
+    "name": "米游社",
+    "column": "tech",
+    "home": "https://www.miyoushe.com",
+    "color": "blue",
+    "interval": 600000,
+    "title": "崩坏3"
+  },
+  "acfun": {
+    "name": "AcFun",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://www.acfun.cn",
+    "color": "blue",
+    "interval": 600000
+  },
+  "dgtle": {
+    "name": "数字尾巴",
+    "column": "tech",
+    "home": "https://www.dgtle.com",
+    "color": "orange",
+    "interval": 600000
+  },
+  "weread": {
+    "name": "微信读书",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://weread.qq.com",
+    "color": "green",
+    "interval": 600000
+  },
+  "netease-music": {
+    "name": "网易云音乐",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://music.163.com",
+    "color": "red",
+    "interval": 600000
+  },
+  "weatheralarm": {
+    "name": "天气预警",
+    "column": "china",
+    "home": "http://www.nmc.cn",
+    "color": "orange",
+    "interval": 1800000
+  },
+  "history": {
+    "name": "历史今天",
+    "column": "china",
+    "home": "https://baike.baidu.com/calendar",
+    "color": "gray",
+    "interval": 3600000
+  },
+  "qq-news": {
+    "name": "腾讯新闻",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://news.qq.com",
+    "color": "blue",
+    "interval": 600000
   }
 }

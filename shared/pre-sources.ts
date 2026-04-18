@@ -101,10 +101,6 @@ export const originSources = {
       quick: {
         title: "快讯",
       },
-      renqi: {
-        type: "hottest",
-        title: "人气榜",
-      },
     },
   },
   "douyin": {
@@ -482,6 +478,189 @@ export const originSources = {
         home: "https://www.iqiyi.com",
       },
     },
+  },
+  // ===== 新增热榜源 =====
+  "netease-news": {
+    name: "网易新闻",
+    type: "hottest",
+    column: "china",
+    color: "red",
+    home: "https://news.163.com",
+  },
+  "sina": {
+    name: "新浪",
+    type: "hottest",
+    column: "china",
+    color: "red",
+    home: "https://sina.com.cn",
+  },
+  "zhihu-daily": {
+    name: "知乎日报",
+    column: "china",
+    color: "blue",
+    home: "https://daily.zhihu.com",
+  },
+  "huxiu": {
+    name: "虎嗅",
+    type: "hottest",
+    column: "tech",
+    color: "orange",
+    home: "https://www.huxiu.com",
+  },
+  "ifanr": {
+    name: "爱范儿",
+    column: "tech",
+    color: "green",
+    home: "https://www.ifanr.com",
+  },
+  "guokr": {
+    name: "果壳",
+    column: "tech",
+    color: "green",
+    home: "https://www.guokr.com",
+  },
+  "geekpark": {
+    name: "极客公园",
+    column: "tech",
+    color: "purple",
+    home: "https://www.geekpark.net",
+  },
+  "nytimes": {
+    name: "纽约时报",
+    column: "world",
+    color: "gray",
+    interval: Time.Common,
+    home: "https://cn.nytimes.com",
+    sub: {
+      china: {
+        title: "中文",
+      },
+      global: {
+        title: "国际",
+      },
+    },
+  },
+  "csdn": {
+    name: "CSDN",
+    type: "hottest",
+    column: "tech",
+    color: "red",
+    home: "https://www.csdn.net",
+  },
+  "hellogithub": {
+    name: "HelloGitHub",
+    column: "tech",
+    color: "green",
+    home: "https://hellogithub.com",
+  },
+  "nodeseek": {
+    name: "NodeSeek",
+    column: "tech",
+    color: "blue",
+    home: "https://www.nodeseek.com",
+  },
+  "hostloc": {
+    name: "全球主机交流",
+    column: "tech",
+    color: "blue",
+    home: "https://hostloc.com",
+  },
+  "52pojie": {
+    name: "吾爱破解",
+    column: "tech",
+    color: "green",
+    home: "https://www.52pojie.cn",
+  },
+  "newsmth": {
+    name: "水木社区",
+    type: "hottest",
+    column: "china",
+    color: "blue",
+    home: "https://www.newsmth.net",
+  },
+  "ngabbs": {
+    name: "NGA",
+    type: "hottest",
+    column: "tech",
+    color: "blue",
+    home: "https://ngabbs.com",
+  },
+  "jianshu": {
+    name: "简书",
+    column: "china",
+    color: "red",
+    home: "https://www.jianshu.com",
+  },
+  "lol": {
+    name: "英雄联盟",
+    column: "tech",
+    color: "blue",
+    home: "https://lol.qq.com",
+  },
+  "miyoushe": {
+    name: "米游社",
+    column: "tech",
+    color: "blue",
+    home: "https://www.miyoushe.com",
+    sub: {
+      genshin: {
+        title: "原神",
+      },
+      starrail: {
+        title: "星穹铁道",
+      },
+      honkai: {
+        title: "崩坏3",
+      },
+    },
+  },
+  "acfun": {
+    name: "AcFun",
+    type: "hottest",
+    column: "china",
+    color: "blue",
+    home: "https://www.acfun.cn",
+  },
+  "dgtle": {
+    name: "数字尾巴",
+    column: "tech",
+    color: "orange",
+    home: "https://www.dgtle.com",
+  },
+  "weread": {
+    name: "微信读书",
+    type: "hottest",
+    column: "china",
+    color: "green",
+    home: "https://weread.qq.com",
+  },
+  "netease-music": {
+    name: "网易云音乐",
+    type: "hottest",
+    column: "china",
+    color: "red",
+    home: "https://music.163.com",
+  },
+  "weatheralarm": {
+    name: "天气预警",
+    column: "china",
+    color: "orange",
+    interval: Time.Common,
+    home: "http://www.nmc.cn",
+  },
+  "history": {
+    name: "历史今天",
+    column: "china",
+    color: "gray",
+    interval: Time.Slow,
+    home: "https://baike.baidu.com/calendar",
+  },
+  "qq-news": {
+    name: "腾讯新闻",
+    type: "hottest",
+    column: "china",
+    color: "blue",
+    home: "https://news.qq.com",
   },
 } as const satisfies Record<string, OriginSource>
 
