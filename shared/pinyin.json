@@ -80,7 +80,14 @@
   "apnews": "AP News",
   "nhk": "NHK World",
   "washingtonpost": "huashengdunyoubao",
+  "wsj": "huaerjieribao",
   "aljazeera": "bandaodianshitai",
   "guardian": "weibao",
-  "huggingface": "Huggingface Papers"
+  "economist": "jingjixueren",
+  "techflowpost": "shenchao TechFlow",
+  "stcn": "zhengquanshibao",
+  "huggingface": "Huggingface Papers",
+  "oschina": "kaiyuanzhongguo",
+  "segmentfault": "SegmentFault",
+  "xiaohongshu": "xiaohongshu"
 }

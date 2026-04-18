@@ -816,6 +816,14 @@
     "color": "gray",
     "interval": 600000
   },
+  "wsj": {
+    "name": "华尔街日报",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.wsj.com",
+    "color": "blue",
+    "interval": 600000
+  },
   "aljazeera": {
     "name": "半岛电视台",
     "type": "realtime",
@@ -832,12 +840,60 @@
     "color": "blue",
     "interval": 600000
   },
+  "economist": {
+    "name": "经济学人",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.economist.com",
+    "color": "red",
+    "interval": 1800000
+  },
+  "techflowpost": {
+    "name": "深潮 TechFlow",
+    "type": "realtime",
+    "column": "finance",
+    "home": "https://www.techflowpost.com",
+    "color": "purple",
+    "interval": 600000
+  },
+  "stcn": {
+    "name": "证券时报",
+    "type": "hottest",
+    "column": "finance",
+    "home": "https://www.stcn.com",
+    "color": "red",
+    "interval": 600000
+  },
   "huggingface": {
     "name": "Huggingface Papers",
     "type": "hottest",
     "column": "tech",
     "home": "https://huggingface.co/papers",
     "color": "yellow",
+    "interval": 600000
+  },
+  "oschina": {
+    "name": "开源中国",
+    "type": "realtime",
+    "column": "tech",
+    "home": "https://www.oschina.net",
+    "color": "red",
+    "interval": 600000
+  },
+  "segmentfault": {
+    "name": "SegmentFault",
+    "type": "hottest",
+    "column": "tech",
+    "home": "https://segmentfault.com",
+    "color": "green",
+    "interval": 600000
+  },
+  "xiaohongshu": {
+    "name": "小红书",
+    "type": "hottest",
+    "column": "china",
+    "home": "https://www.xiaohongshu.com",
+    "color": "red",
     "interval": 600000
   }
 }
