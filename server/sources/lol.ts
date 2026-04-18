@@ -15,7 +15,7 @@ interface LolResponse {
 
 export default defineSource(async () => {
   const url = "https://apps.game.qq.com/cmc/zmMcnTargetContentList?r0=json&page=1&num=30&target=24&source=web_pc"
-  const res: LolResponse = await myFetch(url)
+  const res: LolResponse = await myFetch(url, { responseType: "json" })
 
   return res.data.result.map(v => ({
     id: v.iDocID,

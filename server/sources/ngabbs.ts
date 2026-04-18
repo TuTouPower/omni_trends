@@ -14,13 +14,14 @@ interface NgaResponse {
 export default defineSource(async () => {
   const url = "https://ngabbs.com/nuke.php?__lib=load_topic&__act=load_topic_reply_ladder2&opt=1&all=1"
   const res: NgaResponse = await myFetch(url, {
+    responseType: "json",
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       "Referer": "https://ngabbs.com/",
       "X-User-Agent": "NGA_skull/7.3.1(iPhone13,2;iOS 17.2.1)",
     },
-    body: { __output: "14" },
+    body: "__output=14",
   })
 
   const list = res.result[0]

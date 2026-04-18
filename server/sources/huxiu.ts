@@ -1,10 +1,10 @@
 interface HuxiuItem {
   content: string
-  object_id: string
+  object_id: number
   user_info?: {
     username: string
   }
-  publish_time: string
+  publish_time: number
   count_info?: {
     agree_num: number
   }
@@ -21,6 +21,7 @@ interface HuxiuApiResponse {
 export default defineSource(async () => {
   const url = "https://moment-api.huxiu.com/web-v3/moment/feed?platform=www"
   const res: HuxiuApiResponse = await myFetch(url, {
+    responseType: "json",
     headers: {
       "User-Agent": "Mozilla/5.0",
       "Referer": "https://www.huxiu.com/moment/",
@@ -29,13 +30,13 @@ export default defineSource(async () => {
   const list = res.data?.moment_list?.datalist || []
   return list.map((v) => {
     const content = (v.content || "").replace(/<br\s*\/?>/gi, "\n")
-    const [titleLine, ...rest] = content
+    const lines = content
       .split("\n")
       .map((s: string) => s.trim())
       .filter(Boolean)
-    const title = titleLine?.replace(/。$/, "") || ""
-    const intro = rest.join("\n")
-    const momentId = v.object_id
+    const title = lines[0]?.replace(/。$/, "") || ""
+    const intro = lines.slice(1).join("\n")
+    const momentId = String(v.object_id)
     return {
       id: momentId,
       title,
@@ -43,7 +44,7 @@ export default defineSource(async () => {
       extra: {
         info: v.user_info?.username || "",
         hover: intro,
-        date: parseRelativeDate(v.publish_time, "Asia/Shanghai").valueOf(),
+        date: v.publish_time * 1000,
       },
     }
   })

@@ -1,8 +1,8 @@
 interface IfanrItem {
-  id: string
+  id: number
   post_title: string
   post_content: string
-  created_at: string
+  created_at: number
   like_count: number
   comment_count: number
   buzz_original_url?: string
@@ -15,14 +15,14 @@ interface IfanrResponse {
 
 export default defineSource(async () => {
   const url = "https://sso.ifanr.com/api/v5/wp/buzz/?limit=20&offset=0"
-  const res: IfanrResponse = await myFetch(url)
+  const res: IfanrResponse = await myFetch(url, { responseType: "json" })
   return res.objects.map(v => ({
-    id: v.id,
+    id: String(v.id),
     title: v.post_title,
     url: v.buzz_original_url || `https://www.ifanr.com/${v.post_id}`,
     extra: {
-      hover: v.post_content,
-      date: parseRelativeDate(v.created_at, "Asia/Shanghai").valueOf(),
+      hover: v.post_content?.replace(/<[^>]*>/g, "").slice(0, 100),
+      date: v.created_at * 1000,
     },
   }))
 })
