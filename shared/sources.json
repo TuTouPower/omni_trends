@@ -895,5 +895,40 @@
     "home": "https://www.xiaohongshu.com",
     "color": "red",
     "interval": 600000
+  },
+  "reddit": {
+    "redirect": "reddit-hot",
+    "name": "Reddit",
+    "type": "hottest",
+    "column": "world",
+    "home": "https://www.reddit.com",
+    "color": "orange",
+    "interval": 600000,
+    "title": "Hot"
+  },
+  "reddit-hot": {
+    "name": "Reddit",
+    "type": "hottest",
+    "column": "world",
+    "home": "https://www.reddit.com",
+    "color": "orange",
+    "interval": 600000,
+    "title": "Hot"
+  },
+  "reddit-worldnews": {
+    "name": "Reddit",
+    "type": "realtime",
+    "column": "world",
+    "home": "https://www.reddit.com",
+    "color": "orange",
+    "interval": 600000,
+    "title": "World News"
+  },
+  "youtube": {
+    "name": "YouTube",
+    "column": "tech",
+    "home": "https://www.youtube.com",
+    "color": "red",
+    "interval": 600000
   }
 }

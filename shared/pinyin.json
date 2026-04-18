@@ -89,5 +89,8 @@
   "huggingface": "Huggingface Papers",
   "oschina": "kaiyuanzhongguo",
   "segmentfault": "SegmentFault",
-  "xiaohongshu": "xiaohongshu"
+  "xiaohongshu": "xiaohongshu",
+  "reddit-hot": "Reddit-Hot",
+  "reddit-worldnews": "Reddit-World News",
+  "youtube": "YouTube"
 }

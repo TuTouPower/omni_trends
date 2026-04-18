@@ -765,6 +765,28 @@ export const originSources = {
     color: "red",
     home: "https://www.xiaohongshu.com",
   },
+  "reddit": {
+    name: "Reddit",
+    color: "orange",
+    column: "world",
+    home: "https://www.reddit.com",
+    sub: {
+      hot: {
+        title: "Hot",
+        type: "hottest",
+      },
+      worldnews: {
+        title: "World News",
+        type: "realtime",
+      },
+    },
+  },
+  "youtube": {
+    name: "YouTube",
+    color: "red",
+    column: "tech",
+    home: "https://www.youtube.com",
+  },
 } as const satisfies Record<string, OriginSource>
 
 export function genSources() {
