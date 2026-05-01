@@ -2,37 +2,17 @@
 
 English | [简体中文](README.zh-CN.md) | [日本語](README.ja-JP.md)
 
-> [!NOTE]
-> This is a demo version currently supporting Chinese only. A full-featured version with better customization and English content support will be released later.
-
 **_Elegant reading of real-time and hottest news_**
 
 ## Features
 
 - Clean and elegant UI design for optimal reading experience
-- Real-time updates on trending news
+- Real-time updates on trending news from 80+ sources
 - GitHub OAuth login with data synchronization
 - 30-minute default cache duration (logged-in users can force refresh)
 - Adaptive scraping interval (minimum 2 minutes) based on source update frequency to optimize resource usage and prevent IP bans
-- support MCP server
-
-```json
-{
-  "mcpServers": {
-    "newsnow": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "newsnow-mcp-server"
-      ],
-      "env": {
-        "BASE_URL": "https://newsnow.busiyi.world"
-      }
-    }
-  }
-}
-```
-You can change the `BASE_URL` to your own domain.
+- Dark/light mode toggle
+- MCP server support
 
 ## Deployment
 
@@ -40,7 +20,7 @@ You can change the `BASE_URL` to your own domain.
 
 For deployments without login and caching:
 
-1. Fork this repository
+1. Clone this repository
 2. Import to platforms like Cloudflare Page or Vercel
 
 ### Cloudflare Page Configuration
@@ -100,12 +80,16 @@ You can also set Environment Variables in `docker-compose.yml`.
 ```sh
 corepack enable
 pnpm i
-pnpm dev
+pnpm build
+PORT=3000 node --env-file .env.server dist/output/server/index.mjs
 ```
+
+> [!Warning]
+> `pnpm dev` has known compatibility issues. Use `pnpm build` + `node dist/output/server/index.mjs` instead.
 
 ### Adding Data Sources
 
-Refer to `shared/sources` and `server/sources` directories. The project provides complete type definitions and a clean architecture.
+Refer to `shared/pre-sources.ts` for source definitions and `server/sources/` for source implementations.
 
 For detailed instructions on how to add new sources, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -115,7 +99,6 @@ For detailed instructions on how to add new sources, see [CONTRIBUTING.md](CONTR
 - Improve **personalization options** (category-based news, saved preferences).
 - Expand **data sources** to cover global news in multiple languages.
 
-**_release when ready_**
 ![](https://testmnbbs.oss-cn-zhangjiakou.aliyuncs.com/pic/20250328172146_rec_.gif?x-oss-process=base_webp)
 
 ## Contributing
@@ -124,6 +107,10 @@ Contributions are welcome! Feel free to submit pull requests or create issues fo
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on how to contribute, especially for adding new data sources.
 
+## Acknowledgements
+
+Based on [NewsNow](https://github.com/ourongxing/newsnow) by ourongxing.
+
 ## License
 
-[MIT](./LICENSE) © ourongxing
+[MIT](./LICENSE)

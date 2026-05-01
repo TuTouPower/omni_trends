@@ -1,10 +1,10 @@
-# Contributing to NewsNow
+# Contributing to OmniTrends
 
-Thank you for considering contributing to NewsNow! This document provides guidelines and instructions for contributing to the project.
+Thank you for considering contributing to OmniTrends! This document provides guidelines and instructions for contributing to the project.
 
 ## Adding a New Source
 
-NewsNow is built to be easily extensible with new sources. Here's a step-by-step guide on how to add a new source:
+OmniTrends is built to be easily extensible with new sources. Here's a step-by-step guide on how to add a new source:
 
 ### 1. Create a Feature Branch
 
@@ -140,11 +140,15 @@ This will update the `sources.json` file and any other necessary configuration.
 
 ### 5. Test Your Changes
 
-Start the development server to test your changes:
+Build and start the server to test your changes:
 
 ```bash
-npm run dev
+pnpm build
+PORT=3000 node --env-file .env.server dist/output/server/index.mjs
 ```
+
+> [!Warning]
+> `pnpm dev` has known compatibility issues. Always use `pnpm build` + `node dist/output/server/index.mjs`.
 
 Access the application in your browser and ensure that your new source is appearing and working correctly.
 
