@@ -14,6 +14,7 @@ dotenv.config({
 })
 
 export default defineConfig({
+  base: "/omni_trends/",
   resolve: {
     alias: {
       "~": join(projectDir, "src"),
