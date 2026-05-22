@@ -1,11 +1,11 @@
 services:
-  newsnow:
-    image: ghcr.io/ourongxing/newsnow:latest
-    container_name: newsnow
+  omnitrends:
+    image: ghcr.io/tutoupower/omni_trends:latest
+    container_name: omnitrends
     ports:
       - '4444:4444'
     volumes:
-      - newsnow_data:/usr/app/.data
+      - omnitrends_data:/usr/app/.data
     environment:
       - HOST=0.0.0.0
       - PORT=4444
@@ -18,5 +18,5 @@ services:
       - PRODUCTHUNT_API_TOKEN=
 
 volumes:
-  newsnow_data:
-    name: newsnow_data
+  omnitrends_data:
+    name: omnitrends_data

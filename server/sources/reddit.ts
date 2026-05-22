@@ -19,7 +19,7 @@ interface RedditListing {
 async function fetchReddit(path: string) {
   const res = await myFetch<RedditListing>(`https://www.reddit.com${path}`, {
     headers: {
-      "User-Agent": "newsnow-bot/1.0",
+      "User-Agent": "omnitrends-bot/1.0",
     },
   })
   return res.data.children

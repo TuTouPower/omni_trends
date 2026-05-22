@@ -1,6 +1,5 @@
 import * as cheerio from "cheerio"
 import type { NewsItem } from "@shared/types"
-import { proxySource } from "#/utils/source"
 
 const relativeTimeToDate = function (timeStr: string) {
   const units = {
@@ -58,4 +57,4 @@ const source = defineSource(async () => {
   return news
 })
 
-export default proxySource("https://newsnow-omega-one.vercel.app/api/s?id=ghxi&latest=", source)
+export default source
