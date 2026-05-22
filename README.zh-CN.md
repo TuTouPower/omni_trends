@@ -1,5 +1,7 @@
 # OmniTrends
 
+![](/public/logo.png)
+
 实时热点新闻聚合阅读器 — 基于 [NewsNow](https://github.com/ourongxing/newsnow) 二次开发，扩展了更多数据源、代理支持和 bug 修复。
 
 [English](README.md)

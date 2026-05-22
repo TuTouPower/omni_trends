@@ -3,7 +3,7 @@ import type { VitePWAOptions } from "vite-plugin-pwa"
 import { VitePWA } from "vite-plugin-pwa"
 
 const pwaOption: Partial<VitePWAOptions> = {
-  includeAssets: ["icon.svg", "apple-touch-icon.png"],
+  includeAssets: ["favicon.png", "apple-touch-icon.png"],
   filename: "swx.js",
   manifest: {
     name: "OmniTrends",

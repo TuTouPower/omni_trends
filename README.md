@@ -1,5 +1,7 @@
 # OmniTrends
 
+![](/public/logo.png)
+
 Real-time trending news aggregator — forked from [NewsNow](https://github.com/ourongxing/newsnow) and extended with more sources, proxy support, and bug fixes.
 
 [简体中文](README.zh-CN.md)
