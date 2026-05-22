@@ -63,6 +63,7 @@ export const originSources = {
     home: "https://mktnews.net",
     color: "indigo",
     interval: Time.Realtime,
+    disable: true,
     sub: {
       flash: {
         title: "快讯",
@@ -228,6 +229,7 @@ export const originSources = {
     color: "emerald",
     home: "https://www.fastbull.cn",
     column: "finance",
+    disable: true,
     sub: {
       express: {
         title: "快讯",
@@ -353,7 +355,6 @@ export const originSources = {
     column: "china",
     color: "yellow",
     home: "https://www.ghxi.com/",
-    disable: true,
   },
   "smzdm": {
     name: "什么值得买",
@@ -590,6 +591,7 @@ export const originSources = {
     column: "china",
     color: "red",
     home: "https://www.jianshu.com",
+    disable: true,
   },
   "lol": {
     name: "英雄联盟",

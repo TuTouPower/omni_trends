@@ -15,5 +15,4 @@ imports.app.d.ts
 package-lock.json
 .specstory/vendors/
 .playwright-mcp/
-CLAUDE.md
 docs/technical_architecture.md
