@@ -1,114 +1,79 @@
-![](/public/og-image.png)
+# OmniTrends
 
-[English](./README.md) | 简体中文 | [日本語](README.ja-JP.md)
+实时热点新闻聚合阅读器 — 基于 [NewsNow](https://github.com/ourongxing/newsnow) 二次开发，扩展了更多数据源、代理支持和 bug 修复。
 
-***优雅地阅读实时热门新闻***
+[English](README.md)
 
-> [!NOTE]
-> 当前版本为 DEMO，仅支持中文。正式版将提供更好的定制化功能和英文内容支持。
+## 与原版的区别
 
-## 功能特性
+- **98 个数据源**（原版约 40 个），覆盖国内、国际媒体、科技、财经
+- **代理支持** — 在 `.env.server` 配置 `HTTPS_PROXY` 即可访问被墙站点
+- **修复多个失效源** — freebuf（TLS 指纹绕过）、小红书（edith API）等
+- **深色/浅色模式**切换
+- **Cloudflare Tunnel** basePath 支持（`/omni_trends`）
 
-- 优雅的阅读界面设计，实时获取最新热点新闻
-- 聚合 80+ 数据源
-- 支持 GitHub 登录及数据同步
-- 默认缓存时长为 30 分钟，登录用户可强制刷新获取最新数据
-- 根据内容源更新频率动态调整抓取间隔（最快每 2 分钟），避免频繁抓取导致 IP 被封禁
-- 支持深色/浅色模式切换
-- 支持 MCP server
+## 快速开始
 
-## 部署指南
+```bash
+pnpm install
+pnpm build
+PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
+```
 
-### 基础部署
+## 配置
 
-无需登录和缓存功能时，可直接部署至 Cloudflare Pages 或 Vercel：
-
-1. 克隆本仓库
-2. 导入至目标平台
-
-### Cloudflare Pages 配置
-
-- 构建命令：`pnpm run build`
-- 输出目录：`dist/output/public`
-
-### GitHub OAuth 配置
-
-1. [创建 GitHub App](https://github.com/settings/applications/new)
-2. 无需特殊权限
-3. 回调 URL 设置为：`https://your-domain.com/api/oauth/github`（替换 your-domain 为实际域名）
-4. 获取 Client ID 和 Client Secret
-
-### 环境变量配置
-
-参考 `example.env.server` 文件，本地运行时重命名为 `.env.server` 并填写以下配置：
+复制 `example.env.server` 为 `.env.server`：
 
 ```env
-# Github Client ID
+PORT=20193
+HTTPS_PROXY=http://127.0.0.1:7897
+HTTP_PROXY=http://127.0.0.1:7897
 G_CLIENT_ID=
-# Github Client Secret
 G_CLIENT_SECRET=
-# JWT Secret, 通常就用 Client Secret
 JWT_SECRET=
-# 初始化数据库, 首次运行必须设置为 true，之后可以将其关闭
 INIT_TABLE=true
-# 是否启用缓存
 ENABLE_CACHE=true
 ```
 
-### 数据库支持
+代理为可选项，但访问国际源（Reddit、HackerNews、BBC、纽约时报等）时必须配置。
 
-本项目主推 Cloudflare Pages 以及 Docker 部署， Vercel 需要你自行搞定数据库，其他支持的数据库可以查看 https://db0.unjs.io/connectors 。
+## 技术栈
 
-1. 在 Cloudflare Worker 控制面板创建 D1 数据库
-2. 在 `wrangler.toml` 中配置 `database_id` 和 `database_name`
-3. 若无 `wrangler.toml` ，可将 `example.wrangler.toml` 重命名并修改配置
-4. 重新部署生效
+| 层 | 技术 |
+|----|------|
+| 前端 | React 19 + TanStack Router/Query + UnoCSS |
+| 后端 | Nitro (h3) — Node.js / Cloudflare Workers |
+| 数据库 | SQLite（本地）/ D1（Cloudflare） |
+| HTTP | ofetch + undici ProxyAgent |
+| 构建 | Vite 7 + pnpm |
 
-### Docker 部署
+## 数据源
 
-对于 Docker 部署，只需要项目根目录 `docker-compose.yaml` 文件，同一目录下执行：
-
-```
-docker compose up
-```
-
-同样可以通过 `docker-compose.yaml` 配置环境变量。
+完整列表见 [docs/source_status.md](docs/source_status.md)，共 98 个正常源、5 个已禁用源。
 
 ## 开发
 
-> [!Note]
 > 需要 Node.js >= 20
 
 ```bash
 corepack enable
-pnpm i
+pnpm install
 pnpm build
-PORT=3000 node --env-file .env.server dist/output/server/index.mjs
+PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
 
-> [!Warning]
-> `pnpm dev` 存在兼容性问题，请使用 `pnpm build` + `node dist/output/server/index.mjs` 方式运行。
+> `pnpm dev` 有兼容性问题，请用 build + run 方式。
 
 ### 添加数据源
 
-参考 `shared/pre-sources.ts` 定义数据源，`server/sources/` 实现数据抓取。
-
-详细指南请参阅 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
-## 路线图
-
-- 添加 **多语言支持**（英语、中文，更多语言即将推出）
-- 改进 **个性化选项**（基于分类的新闻、保存的偏好设置）
-- 扩展 **数据源** 以涵盖多种语言的全球新闻
-
-## 贡献指南
-
-欢迎贡献代码！您可以提交 pull request 或创建 issue 来提出功能请求和报告 bug。
+1. 在 `shared/pre-sources.ts` 定义元信息
+2. 在 `server/sources/{name}.ts` 创建抓取逻辑
+3. 重新构建并测试：`curl http://localhost:20193/omni_trends/api/s?id={name}&latest`
 
 ## 致谢
 
-基于 [NewsNow](https://github.com/ourongxing/newsnow) by ourongxing 开发。
+基于 [ourongxing](https://github.com/ourongxing) 的 [NewsNow](https://github.com/ourongxing/newsnow) 二次开发，原项目采用 MIT 协议。
 
-## License
+## 许可证
 
 [MIT](./LICENSE)

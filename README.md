@@ -1,115 +1,80 @@
-![](/public/og-image.png)
+# OmniTrends
 
-English | [简体中文](README.zh-CN.md) | [日本語](README.ja-JP.md)
+Real-time trending news aggregator — forked from [NewsNow](https://github.com/ourongxing/newsnow) and extended with more sources, proxy support, and bug fixes.
 
-**_Elegant reading of real-time and hottest news_**
+[简体中文](README.zh-CN.md)
 
-## Features
+## What's Different
 
-- Clean and elegant UI design for optimal reading experience
-- Real-time updates on trending news from 80+ sources
-- GitHub OAuth login with data synchronization
-- 30-minute default cache duration (logged-in users can force refresh)
-- Adaptive scraping interval (minimum 2 minutes) based on source update frequency to optimize resource usage and prevent IP bans
-- Dark/light mode toggle
-- MCP server support
+Compared to the original NewsNow:
 
-## Deployment
+- **98 data sources** (up from ~40), covering Chinese, international media, tech, and finance
+- **Proxy support** — `HTTPS_PROXY` in `.env.server` routes all requests through your local proxy (essential for accessing blocked sites in China)
+- **Fixed broken sources** — freebuf (TLS fingerprint bypass via `node:https`), xiaohongshu (edith API), and others
+- **Dark/light mode** toggle
+- **Cloudflare Tunnel** basePath support (`/omni_trends`)
 
-### Basic Deployment
+## Quick Start
 
-For deployments without login and caching:
+```bash
+pnpm install
+pnpm build
+PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
+```
 
-1. Clone this repository
-2. Import to platforms like Cloudflare Page or Vercel
+## Configuration
 
-### Cloudflare Page Configuration
-
-- Build command: `pnpm run build`
-- Output directory: `dist/output/public`
-
-### GitHub OAuth Setup
-
-1. [Create a GitHub App](https://github.com/settings/applications/new)
-2. No special permissions required
-3. Set callback URL to: `https://your-domain.com/api/oauth/github` (replace `your-domain` with your actual domain)
-4. Obtain Client ID and Client Secret
-
-### Environment Variables
-
-Refer to `example.env.server`. For local development, rename it to `.env.server` and configure:
+Copy `example.env.server` to `.env.server`:
 
 ```env
-# Github Client ID
+PORT=20193
+HTTPS_PROXY=http://127.0.0.1:7897
+HTTP_PROXY=http://127.0.0.1:7897
 G_CLIENT_ID=
-# Github Client Secret
 G_CLIENT_SECRET=
-# JWT Secret, usually the same as Client Secret
 JWT_SECRET=
-# Initialize database, must be set to true on first run, can be turned off afterward
 INIT_TABLE=true
-# Whether to enable cache
 ENABLE_CACHE=true
 ```
 
-### Database Support
+Proxy is optional but required for international sources (Reddit, HackerNews, BBC, NYTimes, etc.).
 
-Supported database connectors: https://db0.unjs.io/connectors
-**Cloudflare D1 Database** is recommended.
+## Tech Stack
 
-1. Create D1 database in Cloudflare Worker dashboard
-2. Configure database_id and database_name in wrangler.toml
-3. If wrangler.toml doesn't exist, rename example.wrangler.toml and modify configurations
-4. Changes will take effect on next deployment
+| Layer | Tech |
+|-------|------|
+| Frontend | React 19 + TanStack Router/Query + UnoCSS |
+| Backend | Nitro (h3) — Node.js / Cloudflare Workers |
+| Database | SQLite (local) / D1 (Cloudflare) |
+| HTTP | ofetch + undici ProxyAgent |
+| Build | Vite 7 + pnpm |
 
-### Docker Deployment
+## Data Sources
 
-In project root directory:
-
-```sh
-docker compose up
-```
-
-You can also set Environment Variables in `docker-compose.yml`.
+See [docs/source_status.md](docs/source_status.md) for the full list of 98 working sources and 5 disabled ones.
 
 ## Development
 
-> [!Note]
 > Requires Node.js >= 20
 
-```sh
+```bash
 corepack enable
-pnpm i
+pnpm install
 pnpm build
-PORT=3000 node --env-file .env.server dist/output/server/index.mjs
+PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
 
-> [!Warning]
-> `pnpm dev` has known compatibility issues. Use `pnpm build` + `node dist/output/server/index.mjs` instead.
+> `pnpm dev` has known compatibility issues. Use build + run instead.
 
-### Adding Data Sources
+### Adding Sources
 
-Refer to `shared/pre-sources.ts` for source definitions and `server/sources/` for source implementations.
-
-For detailed instructions on how to add new sources, see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Roadmap
-
-- Add **multi-language support** (English, Chinese, more to come).
-- Improve **personalization options** (category-based news, saved preferences).
-- Expand **data sources** to cover global news in multiple languages.
-
-![](https://testmnbbs.oss-cn-zhangjiakou.aliyuncs.com/pic/20250328172146_rec_.gif?x-oss-process=base_webp)
-
-## Contributing
-
-Contributions are welcome! Feel free to submit pull requests or create issues for feature requests and bug reports.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on how to contribute, especially for adding new data sources.
+1. Define metadata in `shared/pre-sources.ts`
+2. Create getter in `server/sources/{name}.ts`
+3. Rebuild and test: `curl http://localhost:20193/omni_trends/api/s?id={name}&latest`
 
 ## Acknowledgements
 
-Based on [NewsNow](https://github.com/ourongxing/newsnow) by ourongxing.
+Forked from [NewsNow](https://github.com/ourongxing/newsnow) by [ourongxing](https://github.com/ourongxing). Original project is MIT licensed.
 
 ## License
 
