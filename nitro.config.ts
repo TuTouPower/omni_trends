@@ -5,7 +5,6 @@ import { RollopGlob } from "./tools/rollup-glob"
 import { projectDir } from "./shared/dir"
 
 const nitroOption: Parameters<typeof viteNitro>[0] = {
-  baseURL: "/omni_trends",
   experimental: {
     database: true,
   },
