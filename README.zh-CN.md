@@ -4,7 +4,9 @@
 
 实时热点新闻聚合阅读器 — 基于 [NewsNow](https://github.com/ourongxing/newsnow) 二次开发，扩展了更多数据源、代理支持和 bug 修复。
 
-[English](README.md)
+**在线预览**: https://omni-trends.pages.dev
+
+[English](README.md) | [部署到 Cloudflare](docs/cloudflare_deployment.md)
 
 ## 与原版的区别
 

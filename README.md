@@ -4,7 +4,9 @@
 
 Real-time trending news aggregator — forked from [NewsNow](https://github.com/ourongxing/newsnow) and extended with more sources, proxy support, and bug fixes.
 
-[简体中文](README.zh-CN.md)
+**Live Demo**: https://omni-trends.pages.dev
+
+[简体中文](README.zh-CN.md) | [Deploy to Cloudflare](docs/cloudflare_deployment.md)
 
 ## What's Different
 
