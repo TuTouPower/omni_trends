@@ -130,7 +130,7 @@ function NewsCard({ id, setHandleRef }: NewsCardProps) {
             <span className="text-xs op-70"><UpdatedTime isError={isError} updatedTime={data?.updatedTime} /></span>
           </span>
         </div>
-        <div className={$("flex gap-2 text-lg", `color-${sources[id].color}`)}>
+        <div className="flex gap-2 text-lg color-neutral-500 dark:color-neutral-400">
           <button
             type="button"
             className={$("btn i-ph:arrow-counter-clockwise-duotone", isFetching && "animate-spin i-ph:circle-dashed-duotone")}
