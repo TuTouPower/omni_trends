@@ -21,9 +21,6 @@ export default defineSource(async () => {
     id: item.id,
     title: item.title,
     url: `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(item.title)}`,
-    extra: {
-      info: item.score ? `${Math.round(item.score / 10000)}万热度` : undefined,
-    },
   }))
 
   return news
