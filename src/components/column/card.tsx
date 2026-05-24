@@ -133,19 +133,19 @@ function NewsCard({ id, setHandleRef }: NewsCardProps) {
         <div className="flex gap-2 text-lg color-neutral-500 dark:color-neutral-400">
           <button
             type="button"
-            className={$("btn i-ph:arrow-counter-clockwise-duotone", isFetching && "animate-spin i-ph:circle-dashed-duotone")}
+            className={$("btn i-ph:arrow-counter-clockwise-bold", isFetching && "animate-spin i-ph:circle-dashed-bold")}
             onClick={() => refresh(id)}
           />
           <button
             type="button"
-            className={$("btn", isFocused ? "i-ph:star-fill" : "i-ph:star-duotone")}
+            className={$("btn", isFocused ? "i-ph:star-fill" : "i-ph:star-bold")}
             onClick={toggleFocus}
           />
           {/* firefox cannot drag a button */}
           {setHandleRef && (
             <div
               ref={setHandleRef}
-              className={$("btn", "i-ph:dots-six-vertical-duotone", "cursor-grab")}
+              className={$("btn", "i-ph:dots-six-vertical-bold", "cursor-grab")}
             />
           )}
         </div>
