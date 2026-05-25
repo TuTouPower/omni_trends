@@ -15,7 +15,7 @@ dotenv.config({
 })
 
 export default defineConfig({
-  base: process.env.CF_PAGES || process.env.VERCEL ? "/" : "/omni_trends/",
+  base: process.env.CF_PAGES ? "/" : "/omni_trends/",
   resolve: {
     alias: {
       "~": join(projectDir, "src"),
