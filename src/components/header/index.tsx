@@ -1,9 +1,12 @@
 import { Link } from "@tanstack/react-router"
 import { useIsFetching } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import type { SourceID } from "@shared/types"
 import { NavBar } from "../navbar"
 import { Menu } from "./menu"
+import { LangToggle } from "./lang-toggle"
 import { currentSourcesAtom, goToTopAtom } from "~/atoms"
+import { useLang } from "~/hooks/useLang"
 
 function GoTop() {
   const { ok, fn: goToTop } = useAtomValue(goToTopAtom)
@@ -46,6 +49,9 @@ function Refresh() {
 }
 
 export function Header() {
+  const { lang } = useLang()
+  const { t } = useTranslation()
+
   return (
     <>
       <span className="flex justify-self-start">
@@ -56,6 +62,9 @@ export function Header() {
             <p className="mt--1">
               <span className="color-primary-6">T</span>
               <span>rends</span>
+              {lang === "zh" && (
+                <span className="text-sm text-neutral-400 ml-2 tracking-widest">{t("title.site")}</span>
+              )}
             </p>
           </span>
         </Link>
@@ -69,6 +78,7 @@ export function Header() {
         <GoTop />
         <Refresh />
         <Github />
+        <LangToggle />
         <Menu />
       </span>
     </>
