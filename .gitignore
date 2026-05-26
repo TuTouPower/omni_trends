@@ -16,3 +16,4 @@ package-lock.json
 .specstory/vendors/
 .playwright-mcp/
 docs/technical_architecture.md
+.superpowers/
