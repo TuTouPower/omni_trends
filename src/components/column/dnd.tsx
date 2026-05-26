@@ -9,6 +9,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { motion } from "framer-motion"
 import { useWindowSize } from "react-use"
 import { isMobile } from "react-device-detect"
+import { useTranslation } from "react-i18next"
+import { hottestOrderEn, hottestOrderZh } from "@shared/metadata"
 import { DndContext } from "../common/dnd"
 import { useSortable } from "../common/dnd/useSortable"
 import { OverlayScrollbar } from "../common/overlay-scrollbar"
@@ -19,8 +21,21 @@ import { currentSourcesAtom } from "~/atoms"
 const AnimationDuration = 200
 const WIDTH = 350
 export function Dnd() {
-  const [items, setItems] = useAtom(currentSourcesAtom)
+  const [rawItems, setItems] = useAtom(currentSourcesAtom)
+  const currentColumnID = useAtomValue(currentColumnIDAtom)
   const [parent] = useAutoAnimate({ duration: AnimationDuration })
+  const { i18n, t } = useTranslation()
+
+  const items = useMemo(() => {
+    if (currentColumnID !== "hottest") return rawItems
+    const order = i18n.language === "en" ? hottestOrderEn : hottestOrderZh
+    return [...rawItems].sort((a, b) => {
+      const ia = order.indexOf(a)
+      const ib = order.indexOf(b)
+      return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib)
+    })
+  }, [rawItems, i18n.language, currentColumnID])
+
   useEntireQuery(items)
   const { width } = useWindowSize()
   const minWidth = useMemo(() => {
@@ -87,7 +102,7 @@ export function Dnd() {
       </OverlayScrollbar>
       {isMobile && (
         <div className="flex justify-center">
-          <span className="text-sm text-gray-500 text-center">左右滑动查看更多</span>
+          <span className="text-sm text-gray-500 text-center">{t("dnd.swipeHint")}</span>
         </div>
       )}
     </DndWrapper>
@@ -130,6 +145,7 @@ function DndWrapper({ items, setItems, isSingleColumn, children }: PropsWithChil
 }
 
 function CardOverlay({ id }: { id: SourceID }) {
+  const { t } = useTranslation()
   return (
     <div className={$(
       "flex flex-col p-4 backdrop-blur-5",
@@ -150,9 +166,9 @@ function CardOverlay({ id }: { id: SourceID }) {
               <span className="text-xl font-bold">
                 {sources[id].name}
               </span>
-              {sources[id]?.title && <span className={$("text-sm", `color-${sources[id].color} bg-base op-80 bg-op-50! px-1 rounded`)}>{sources[id].title}</span>}
+              {sources[id]?.title && <span className={$("text-sm", `color-${sources[id].color} bg-base op-80 bg-op-50! px-1 rounded`)}>{t(`source.title.${id}`, { defaultValue: sources[id].title })}</span>}
             </span>
-            <span className="text-xs op-70">拖拽中</span>
+            <span className="text-xs op-70">{t("dnd.dragging")}</span>
           </span>
         </div>
         <div className={$("flex gap-2 text-lg", `color-${sources[id].color}`)}>

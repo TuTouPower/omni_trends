@@ -2,6 +2,7 @@ import { Command } from "cmdk"
 import { useMount } from "react-use"
 import type { SourceID } from "@shared/types"
 import { useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import pinyin from "@shared/pinyin.json"
 import { OverlayScrollbar } from "../overlay-scrollbar"
 import { CardWrapper } from "~/components/column/card"
@@ -12,7 +13,8 @@ interface SourceItemProps {
   id: SourceID
   name: string
   title?: string
-  column: any
+  column: string | null
+  columnName: string
   pinyin: string
 }
 
@@ -20,36 +22,37 @@ function groupByColumn(items: SourceItemProps[]) {
   return items.reduce((acc, item) => {
     const k = acc.find(i => i.column === item.column)
     if (k) k.sources = [...k.sources, item]
-    else acc.push({ column: item.column, sources: [item] })
+    else acc.push({ column: item.column, columnName: item.columnName, sources: [item] })
     return acc
   }, [] as {
-    column: string
+    column: string | null
+    columnName: string
     sources: SourceItemProps[]
   }[]).sort((m, n) => {
-    if (m.column === "科技") return -1
-    if (n.column === "科技") return 1
-
-    if (m.column === "未分类") return 1
-    if (n.column === "未分类") return -1
-
+    if (m.column === "tech") return -1
+    if (n.column === "tech") return 1
+    if (!m.column) return 1
+    if (!n.column) return -1
     return m.column < n.column ? -1 : 1
   })
 }
 
 export function SearchBar() {
   const { opened, toggle } = useSearchBar()
+  const { t } = useTranslation()
   const sourceItems = useMemo(
     () =>
       groupByColumn(typeSafeObjectEntries(sources)
         .filter(([_, source]) => !source.redirect)
         .map(([k, source]) => ({
           id: k,
-          title: source.title,
-          column: source.column ? columns[source.column].zh : "未分类",
+          title: source.title ? t(`source.title.${k}`, { defaultValue: source.title }) : undefined,
+          column: source.column || null,
+          columnName: source.column ? t(`column.${source.column}`) : t("search.uncategorized"),
           name: source.name,
           pinyin: pinyin?.[k as keyof typeof pinyin] ?? "",
         })))
-    , [],
+    , [t],
   )
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -83,15 +86,15 @@ export function SearchBar() {
       <Command.Input
         ref={inputRef}
         autoFocus
-        placeholder="搜索你想要的"
+        placeholder={t("search.placeholder")}
       />
       <div className="md:flex pt-2">
         <OverlayScrollbar defer className="overflow-y-auto md:min-w-275px">
           <Command.List>
-            <Command.Empty> 没有找到，可以前往 Github 提 issue </Command.Empty>
+            <Command.Empty>{t("search.empty")}</Command.Empty>
             {
-              sourceItems.map(({ column, sources }) => (
-                <Command.Group heading={column} key={column}>
+              sourceItems.map(({ column, columnName, sources }) => (
+                <Command.Group heading={columnName} key={column ?? "uncategorized"}>
                   {
                     sources.map(item => <SourceItem item={item} key={item.id} />)
                   }

@@ -51,6 +51,26 @@
     "interval": 600000,
     "title": "热搜"
   },
+  "bilibili-hot-video": {
+    "name": "哔哩哔哩",
+    "type": "hottest",
+    "disable": "cf",
+    "column": "china",
+    "home": "https://www.bilibili.com",
+    "color": "blue",
+    "interval": 600000,
+    "title": "热门视频"
+  },
+  "bilibili-ranking": {
+    "name": "哔哩哔哩",
+    "type": "hottest",
+    "disable": "cf",
+    "column": "china",
+    "home": "https://www.bilibili.com",
+    "color": "blue",
+    "interval": 1800000,
+    "title": "排行榜"
+  },
   "baidu": {
     "name": "百度热搜",
     "type": "hottest",
@@ -126,6 +146,15 @@
     "column": "china",
     "home": "https://daily.zhihu.com",
     "color": "blue",
+    "interval": 600000
+  },
+  "kuaishou": {
+    "name": "快手",
+    "type": "hottest",
+    "disable": "cf",
+    "column": "china",
+    "home": "https://www.kuaishou.com",
+    "color": "orange",
     "interval": 600000
   },
   "36kr": {
@@ -489,6 +518,16 @@
     "color": "blue",
     "interval": 600000
   },
+  "freebuf": {
+    "title": "网络安全",
+    "name": "Freebuf",
+    "type": "hottest",
+    "disable": "cf",
+    "column": "china",
+    "home": "https://www.freebuf.com/",
+    "color": "green",
+    "interval": 600000
+  },
   "qqvideo": {
     "redirect": "qqvideo-tv-hotsearch",
     "name": "腾讯视频",
@@ -805,6 +844,27 @@
     "home": "https://www.oschina.net",
     "color": "red",
     "interval": 600000
+  },
+  "reddit": {
+    "redirect": "reddit-hot",
+    "name": "Reddit",
+    "type": "hottest",
+    "disable": "cf",
+    "column": "world",
+    "home": "https://www.reddit.com",
+    "color": "orange",
+    "interval": 600000,
+    "title": "Hot"
+  },
+  "reddit-hot": {
+    "name": "Reddit",
+    "type": "hottest",
+    "disable": "cf",
+    "column": "world",
+    "home": "https://www.reddit.com",
+    "color": "orange",
+    "interval": 600000,
+    "title": "Hot"
   },
   "reddit-worldnews": {
     "name": "Reddit",

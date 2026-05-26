@@ -1,12 +1,14 @@
 import { motion } from "framer-motion"
+import { useTranslation } from "react-i18next"
 
 function ThemeToggle() {
   const { isDark, toggleDark } = useDark()
+  const { t } = useTranslation()
   return (
     <li onClick={toggleDark} className="cursor-pointer [&_*]:cursor-pointer transition-all">
       <span className={$("inline-block", isDark ? "i-ph-moon-stars-duotone" : "i-ph-sun-dim-duotone")} />
       <span>
-        {isDark ? "浅色模式" : "深色模式"}
+        {isDark ? t("menu.lightMode") : t("menu.darkMode")}
       </span>
     </li>
   )
@@ -15,6 +17,7 @@ function ThemeToggle() {
 export function Menu() {
   const { loggedIn, login, logout, userInfo, enableLogin } = useLogin()
   const [shown, show] = useState(false)
+  const { t } = useTranslation()
   return (
     <span className="relative" onMouseEnter={() => show(true)} onMouseLeave={() => show(false)}>
       <span className="flex items-center scale-90">
@@ -55,19 +58,19 @@ export function Menu() {
                 ? (
                     <li onClick={logout}>
                       <span className="i-ph:sign-out-duotone inline-block" />
-                      <span>退出登录</span>
+                      <span>{t("menu.logout")}</span>
                     </li>
                   )
                 : (
                     <li onClick={login}>
                       <span className="i-ph:sign-in-duotone inline-block" />
-                      <span>Github 账号登录</span>
+                      <span>{t("menu.login")}</span>
                     </li>
                   ))}
               <ThemeToggle />
               <li onClick={() => window.open(Homepage)} className="cursor-pointer [&_*]:cursor-pointer transition-all">
                 <span className="i-ph:github-logo-duotone inline-block" />
-                <span>Star on Github </span>
+                <span>{t("menu.star")}</span>
               </li>
               <li className="flex gap-2 items-center">
                 <a
