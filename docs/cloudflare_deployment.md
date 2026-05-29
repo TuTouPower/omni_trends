@@ -1,6 +1,6 @@
 # Cloudflare Pages 部署指南
 
-在线预览：https://omni-trends.pages.dev
+在线预览：https://omni-trends.pages.dev/omni_trends/
 
 ## 前提
 
@@ -57,17 +57,19 @@ database_id = "<你的 database_id>"
 CF_PAGES=1 pnpm build
 ```
 
-**部署必须指定 `--branch master`**。项目的 Cloudflare Pages 生产分支是 `master`，用其他分支名只会部署到 preview 环境。
+**部署路径必须是 `dist/output/public`**（不是 `dist/output`）。
+
+**必须指定 `--branch main`**，匹配项目的生产分支。
 
 ```bash
-npx wrangler pages deploy dist/output/public --project-name omni-trends --branch master --commit-dirty=true
+npx wrangler pages deploy dist/output/public --branch main --commit-dirty=true
 ```
 
 首次部署会自动创建 Pages 项目。
 
 ### 5. 设置环境变量
 
-在 Cloudflare Dashboard → Pages → 你的项目 → Settings → Environment variables 中添加：
+在 Cloudflare Dashboard → Pages → 项目 → Settings → Environment variables 中添加：
 
 | 变量 | 值 | 说明 |
 |------|-----|------|
@@ -84,37 +86,84 @@ npx wrangler pages deploy dist/output/public --project-name omni-trends --branch
 | 本地（Node） | `/omni_trends/` | `/omni_trends` | `localhost:20193/omni_trends/` |
 | Cloudflare Pages | `/` | 无 | `omni-trends.pages.dev/omni_trends/`（CF 平台处理） |
 
-`vite.config.ts` 和 `nitro.config.ts` 通过 `process.env.CF_PAGES` 自动切换配置。本地开发时需要 `/omni_trends` 前缀（Nitro 会 302 重定向），CF Pages 的平台层自行处理路径映射。
+`vite.config.ts` 和 `nitro.config.ts` 通过 `process.env.CF_PAGES` 自动切换配置。
 
-## 常见问题
+## 踩坑记录
 
-### 部署后线上没更新
+### 生产分支错误：部署到 Preview 而非 Production
 
-1. 确认用了 `--branch master`（不是 `--branch main`），否则只会部署到 preview
-2. 浏览器缓存：Ctrl+Shift+Delete 清除缓存，或用无痕窗口验证
-3. Wrangler 显示 "Uploaded 0 files" 是正常的——它会对比 hash 跳过未变化的文件，worker bundle 仍会更新
+**现象：** `wrangler pages deploy` 成功，但线上内容不更新。
 
-### 数据源被禁用
+**原因：** Cloudflare Pages 项目的生产分支设为 `master`，而代码在 `main` 分支。不指定 `--branch` 或指定 `--branch main` 会部署到 Preview 环境。
 
-部分网站封禁 Cloudflare Workers 出口 IP，这些数据源在 CF 环境下自动禁用（`disable: "cf"` 标记）：
+**解决：**
+1. 在 Cloudflare Dashboard → Pages → 项目 → Settings → Branches 中，将 Production branch 改为 `main`
+2. 部署时加 `--branch main`
 
-| 数据源 | 错误 | 原因 |
-|--------|------|------|
-| Freebuf | 405 Forbidden | freebuf WAF 封禁 CF IP |
-| Reddit (Hot) | 403 Forbidden | Reddit 封禁 CF IP |
+### 部署路径错误
 
-本地开发不受影响。
+**现象：** 部署成功但访问 404 或返回 HTML 而非静态资源。
+
+**原因：** `wrangler pages deploy` 的路径必须是包含 `_worker.js` 的目录，即 `dist/output/public`，不是 `dist/output`。
+
+**解决：**
+```bash
+# 错误
+npx wrangler pages deploy dist/output --branch main
+
+# 正确
+npx wrangler pages deploy dist/output/public --branch main
+```
+
+### 中文文件名在 CF Pages 上 404
+
+**现象：** 爱发电图片（`爱发电.jpg`）在本地正常，CF 上加载失败。
+
+**原因：** Cloudflare Pages 对中文文件名的 URL 编码处理有问题。浏览器请求 `%E7%88%B1%E5%8F%91%E7%94%B5.jpg`，CF Pages 找不到匹配文件，返回 SPA fallback（index.html）。
+
+**解决：** 文件名改用纯 ASCII（`ai_fa_dian.jpg`），代码中同步更新引用。
+
+**规则：** `public/` 目录下的所有文件名必须是纯 ASCII（字母、数字、连字符、下划线、点）。
+
+### Wrangler 显示 "Uploaded 0 files"
+
+**正常现象。** Wrangler 对比文件 hash 跳过未变化的文件，但 Worker bundle 仍会更新。如果线上没更新，检查分支和路径是否正确。
+
+## 数据源与 CF 环境
+
+### disable: "cf" 机制
+
+`shared/pre-sources.ts` 中 `disable: "cf"` 标记的源在 CF 构建时被排除：
+
+```typescript
+// genSources() 过滤逻辑
+if (v.disable === "cf" && process.env.CF_PAGES) {
+  return false
+}
+```
+
+当前被排除的源：
+
+| 数据源 | 原因 |
+|--------|------|
+| bilibili-hot-video | CF 出口 IP 被封 |
+| bilibili-ranking | CF 出口 IP 被封 |
+| kuaishou | CF 出口 IP 被封 |
+
+### "最热" 栏目分类
+
+数据源在"最热"栏目显示由 `type: "hottest"` 控制，与 `disable` 无关。去掉 `type: "hottest"` 后，源仍正常抓取，只是不在"最热"列展示。
 
 ## 相关文件
 
 | 文件 | 说明 |
 |------|------|
 | `wrangler.toml` | Wrangler 配置（D1 绑定、兼容性标志） |
-| `nitro.config.ts` | Nitro 构建配置（`CF_PAGES` 环境检测，本地 baseURL） |
+| `nitro.config.ts` | Nitro 构建配置（`CF_PAGES` 环境检测） |
 | `vite.config.ts` | Vite 构建配置（`CF_PAGES` 时 base `/`，本地 `/omni_trends/`） |
 | `shared/pre-sources.ts` | 数据源定义（`disable: "cf"` 控制） |
 
 ## 访问地址
 
-- 生产环境：https://omni-trends.pages.dev
+- 生产环境：https://omni-trends.pages.dev/omni_trends/
 - 自定义域名：在 Cloudflare Dashboard → Pages → Custom domains 中绑定
