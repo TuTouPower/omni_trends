@@ -489,9 +489,7 @@ export const originSources = {
     column: "china",
     title: "网络安全",
     color: "green",
-    type: "hottest",
     home: "https://www.freebuf.com/",
-    disable: "cf",
   },
 
   "qqvideo": {
@@ -769,8 +767,6 @@ export const originSources = {
     sub: {
       hot: {
         title: "Hot",
-        type: "hottest",
-        disable: "cf",
       },
       worldnews: {
         title: "World News",
