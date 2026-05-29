@@ -158,7 +158,7 @@ function CardOverlay({ id }: { id: SourceID }) {
           <div
             className={$("w-8 h-8 rounded-full bg-cover")}
             style={{
-              backgroundImage: `url(/icons/${id.split("-")[0]}.png)`,
+              backgroundImage: `url(${import.meta.env.BASE_URL}icons/${id.split("-")[0]}.png)`,
             }}
           />
           <span className="flex flex-col">
