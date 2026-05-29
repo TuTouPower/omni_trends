@@ -147,7 +147,7 @@ curl -s "http://localhost:20193/api/s?id={source_id}"
 - 测试单个源时需带 basePath：`curl http://localhost:20193/omni_trends/api/s?id={id}&latest`
 - 缓存存储在 `.data/db.sqlite3`，清除特定源缓存：`sqlite3 .data/db.sqlite3 "DELETE FROM cache WHERE id='xxx';"`
 
-## 详细参考文档
+## 参考文档
 
-- `docs/technical_architecture.md` — 完整技术架构分析、API 文档、数据源清单
-- `docs/github_issues_report.md` — 上游 GitHub Issues 分析报告
+- `docs/cloudflare_deployment.md` — Cloudflare Pages 部署指南
+- `docs/archive/` — 历史文档（上游分析、bug 修复记录、部署方案对比）
