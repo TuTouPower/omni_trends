@@ -2,23 +2,20 @@
 
 ![](/public/logo.png)
 
-Real-time trending news aggregator — forked from [NewsNow](https://github.com/ourongxing/newsnow) and extended with more sources, proxy support, and bug fixes.
+实时热点新闻聚合阅读器，汇集全球 98 个数据源的热门新闻统一展示。
 
-**Live Demo**: https://omni-trends.pages.dev
+**在线访问**: http://zzzkkkccc.site/omni_trends/
 
-[简体中文](README.zh-CN.md) | [Deploy to Cloudflare](docs/cloudflare_deployment.md)
+[Forked from NewsNow](https://github.com/ourongxing/newsnow)，在此基础上扩展了更多数据源、代理支持和 bug 修复。
 
-## What's Different
+## 特性
 
-Compared to the original NewsNow:
+- **98 个数据源**，覆盖国内媒体、国际媒体、科技、财经
+- **代理支持** — `.env.server` 中配置 `HTTPS_PROXY` 走代理（国内访问国外源必需）
+- **深色/浅色模式** 切换
+- **统一路由前缀** `/omni_trends`，兼容本地、Docker、Cloudflare Pages
 
-- **98 data sources** (up from ~40), covering Chinese, international media, tech, and finance
-- **Proxy support** — `HTTPS_PROXY` in `.env.server` routes all requests through your local proxy (essential for accessing blocked sites in China)
-- **Fixed broken sources** — freebuf (TLS fingerprint bypass via `node:https`), xiaohongshu (edith API), and others
-- **Dark/light mode** toggle
-- **Cloudflare Tunnel** basePath support (`/omni_trends`)
-
-## Quick Start
+## 快速开始
 
 ```bash
 pnpm install
@@ -26,40 +23,52 @@ pnpm build
 PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
 
-## Configuration
+访问 http://localhost:20193/omni_trends/
 
-Copy `example.env.server` to `.env.server`:
+## 配置
+
+复制 `example.env.server` 为 `.env.server`：
 
 ```env
 PORT=20193
 HTTPS_PROXY=http://127.0.0.1:7897
 HTTP_PROXY=http://127.0.0.1:7897
-G_CLIENT_ID=
-G_CLIENT_SECRET=
-JWT_SECRET=
 INIT_TABLE=true
 ENABLE_CACHE=true
+PRODUCTHUNT_API_TOKEN=
 ```
 
-Proxy is optional but required for international sources (Reddit, HackerNews, BBC, NYTimes, etc.).
+代理可选，但访问国际源（Reddit、HackerNews、BBC 等）需要。
 
-## Tech Stack
+## 部署
 
-| Layer | Tech |
-|-------|------|
-| Frontend | React 19 + TanStack Router/Query + UnoCSS |
-| Backend | Nitro (h3) — Node.js / Cloudflare Workers |
-| Database | SQLite (local) / D1 (Cloudflare) |
-| HTTP | ofetch + undici ProxyAgent |
-| Build | Vite 7 + pnpm |
+三端统一部署脚本 `deploy.sh`：
 
-## Data Sources
+```bash
+bash deploy.sh
+```
 
-See [docs/archive/source_status.md](docs/archive/source_status.md) for the full list of 98 working sources and 5 disabled ones.
+自动完成：Cloudflare Pages 部署 → Docker 镜像构建 → Oracle 远程服务器部署 → 本地启动。
 
-## Development
+| 环境 | 地址 |
+|------|------|
+| 线上 | http://zzzkkkccc.site/omni_trends/ |
+| Oracle | http://64.181.252.105/omni_trends/ |
+| 本地 | http://localhost:20193/omni_trends/ |
 
-> Requires Node.js >= 20
+## 技术栈
+
+| 层 | 技术 |
+|----|------|
+| 前端 | React 19 + TanStack Router/Query + UnoCSS |
+| 后端 | Nitro (h3) — Node.js / Cloudflare Workers |
+| 数据库 | SQLite (本地) / D1 (Cloudflare) |
+| HTTP | ofetch |
+| 构建 | Vite 7 + pnpm |
+
+## 开发
+
+> 需要 Node.js >= 20
 
 ```bash
 corepack enable
@@ -68,18 +77,18 @@ pnpm build
 PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
 
-> `pnpm dev` has known compatibility issues. Use build + run instead.
+> `pnpm dev` 有兼容性问题，使用 build + run。
 
-### Adding Sources
+### 添加数据源
 
-1. Define metadata in `shared/pre-sources.ts`
-2. Create getter in `server/sources/{name}.ts`
-3. Rebuild and test: `curl http://localhost:20193/omni_trends/api/s?id={name}&latest`
+1. 在 `shared/pre-sources.ts` 定义元信息
+2. 在 `server/sources/{name}.ts` 创建 getter
+3. 重新构建测试：`curl http://localhost:20193/omni_trends/api/s?id={name}&latest`
 
-## Acknowledgements
+## 致谢
 
-Forked from [NewsNow](https://github.com/ourongxing/newsnow) by [ourongxing](https://github.com/ourongxing). Original project is MIT licensed.
+Forked from [NewsNow](https://github.com/ourongxing/newsnow) by [ourongxing](https://github.com/ourongxing)。原项目 MIT 协议。
 
-## License
+## 协议
 
 [MIT](./LICENSE)
