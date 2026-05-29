@@ -77,6 +77,14 @@ src/
 
 ## 构建与运行
 
+统一路由前缀 `/omni_trends`，三个环境一致：
+
+| 环境 | 访问地址 | 配置 |
+|------|----------|------|
+| 本地 | `http://localhost:20193/omni_trends/` | Nitro `baseURL` + Vite `base` |
+| Oracle Docker | `http://64.181.252.105/omni_trends/` | nginx proxy_pass 带前缀 |
+| Cloudflare Pages | `omni-trends.pages.dev/omni_trends/` | CF 路由规则 |
+
 ```bash
 pnpm build && PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
