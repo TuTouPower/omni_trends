@@ -29,7 +29,7 @@ function Afdian() {
       title="去爱发电支持作者"
     >
       <img
-        src={`${import.meta.env.BASE_URL}爱发电.jpg`}
+        src={`${import.meta.env.BASE_URL}ai_fa_dian.jpg`}
         alt="爱发电"
         className="h-6 w-6 rounded-full object-cover cursor-pointer btn"
       />
