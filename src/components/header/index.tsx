@@ -20,6 +20,23 @@ function GoTop() {
   )
 }
 
+function Afdian() {
+  return (
+    <a
+      href="https://afdian.com/a/tutoupower"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="去爱发电支持作者"
+    >
+      <img
+        src={`${import.meta.env.BASE_URL}爱发电.jpg`}
+        alt="爱发电"
+        className="h-6 w-6 rounded-full object-cover cursor-pointer btn"
+      />
+    </a>
+  )
+}
+
 function Github() {
   return (
     <button type="button" title="Github" className="i-ph:github-logo-duotone btn" onClick={() => window.open(Homepage)} />
@@ -56,7 +73,7 @@ export function Header() {
     <>
       <span className="flex justify-self-start">
         <Link to="/" className="flex gap-2 items-center">
-          <div className="h-10 w-10 bg-cover bg-center rounded" title="logo" style={{ backgroundImage: "url(/favicon.png)" }} />
+          <div className="h-10 w-10 bg-cover bg-center rounded" title="logo" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}favicon.png)` }} />
           <span className="text-2xl font-brand line-height-none!">
             <p>Omni</p>
             <p className="mt--1">
@@ -78,6 +95,7 @@ export function Header() {
         <GoTop />
         <Refresh />
         <Github />
+        <Afdian />
         <LangToggle />
         <Menu />
       </span>
