@@ -521,8 +521,6 @@
   "freebuf": {
     "title": "网络安全",
     "name": "Freebuf",
-    "type": "hottest",
-    "disable": "cf",
     "column": "china",
     "home": "https://www.freebuf.com/",
     "color": "green",
@@ -848,8 +846,6 @@
   "reddit": {
     "redirect": "reddit-hot",
     "name": "Reddit",
-    "type": "hottest",
-    "disable": "cf",
     "column": "world",
     "home": "https://www.reddit.com",
     "color": "orange",
@@ -858,8 +854,6 @@
   },
   "reddit-hot": {
     "name": "Reddit",
-    "type": "hottest",
-    "disable": "cf",
     "column": "world",
     "home": "https://www.reddit.com",
     "color": "orange",
