@@ -1,43 +1,19 @@
-interface RedditItem {
-  data: {
-    title: string
-    permalink: string
-    score: number
-    num_comments: number
-    created_utc: number
-    thumbnail: string
-  }
+import type { NewsItem } from "@shared/types"
+
+async function fetchRedditRss(path: string): Promise<NewsItem[]> {
+  const rssUrl = `https://old.reddit.com${path}.rss`
+  const data = await rss2json(rssUrl)
+  if (!data?.items.length) throw new Error("Cannot fetch reddit RSS")
+  return data.items.map(item => ({
+    id: item.link,
+    title: item.title,
+    url: item.link,
+    pubDate: item.created,
+  }))
 }
 
-interface RedditListing {
-  data: {
-    children: RedditItem[]
-    dist: number
-  }
-}
-
-async function fetchReddit(path: string) {
-  const res = await myFetch<RedditListing>(`https://www.reddit.com${path}`, {
-    headers: {
-      "User-Agent": "omnitrends-bot/1.0",
-    },
-  })
-  return res.data.children
-    .filter((c: RedditItem) => !c.data.thumbnail?.startsWith("nsfw"))
-    .map((c: RedditItem) => ({
-      id: c.data.permalink,
-      title: c.data.title,
-      url: `https://www.reddit.com${c.data.permalink}`,
-      extra: {
-        info: `${c.data.score} pts · ${c.data.num_comments} comments`,
-      },
-    }))
-}
-
-const hot = defineSource(() => fetchReddit("/hot.json?limit=30"))
-const worldnews = defineSource(() =>
-  fetchReddit("/r/worldnews/hot.json?limit=30"),
-)
+const hot = defineSource(() => fetchRedditRss("/hot"))
+const worldnews = defineSource(() => fetchRedditRss("/r/worldnews/hot"))
 
 export default defineSource({
   "reddit": hot,
