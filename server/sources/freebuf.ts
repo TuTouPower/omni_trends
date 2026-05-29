@@ -1,13 +1,30 @@
+import https from "node:https"
 import { XMLParser } from "fast-xml-parser"
 import type { NewsItem } from "@shared/types"
 
-export default defineSource(async () => {
-  const xml = await myFetch<string>("https://www.freebuf.com/feed", {
-    headers: {
-      Accept: "application/rss+xml, application/xml, text/xml",
-    },
-    responseType: "text",
+function fetchViaNodeHttps(url: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    https.get(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "Accept": "application/rss+xml, application/xml, text/xml",
+      },
+    }, (res) => {
+      let data = ""
+      res.on("data", chunk => data += chunk)
+      res.on("end", () => {
+        if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(data)
+        } else {
+          reject(new Error(`freebuf HTTP ${res.statusCode}`))
+        }
+      })
+    }).on("error", reject)
   })
+}
+
+export default defineSource(async () => {
+  const xml = await fetchViaNodeHttps("https://www.freebuf.com/feed")
   const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "" })
   const result = parser.parse(xml)
   const items = result?.rss?.channel?.item || []
