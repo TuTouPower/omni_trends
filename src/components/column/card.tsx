@@ -5,7 +5,6 @@ import { useWindowSize } from "react-use"
 import { forwardRef, useImperativeHandle } from "react"
 import { useTranslation } from "react-i18next"
 import { OverlayScrollbar } from "../common/overlay-scrollbar"
-import { safeParseString } from "~/utils"
 
 export interface ItemsProps extends React.HTMLAttributes<HTMLDivElement> {
   id: SourceID
@@ -59,11 +58,8 @@ function NewsCard({ id, setHandleRef }: NewsCardProps) {
     queryFn: async ({ queryKey }) => {
       const id = queryKey[1] as SourceID
       let url = `/s?id=${id}`
-      const headers: Record<string, any> = {}
       if (refetchSources.has(id)) {
         url = `/s?id=${id}&latest`
-        const jwt = safeParseString(localStorage.getItem("jwt"))
-        if (jwt) headers.Authorization = `Bearer ${jwt}`
         refetchSources.delete(id)
       } else if (cacheSources.has(id)) {
         // wait animation
@@ -71,9 +67,7 @@ function NewsCard({ id, setHandleRef }: NewsCardProps) {
         return cacheSources.get(id)
       }
 
-      const response: SourceResponse = await myFetch(url, {
-        headers,
-      })
+      const response: SourceResponse = await myFetch(url)
 
       function diff() {
         try {
