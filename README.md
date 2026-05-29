@@ -55,7 +55,7 @@ Proxy is optional but required for international sources (Reddit, HackerNews, BB
 
 ## Data Sources
 
-See [docs/source_status.md](docs/source_status.md) for the full list of 98 working sources and 5 disabled ones.
+See [docs/archive/source_status.md](docs/archive/source_status.md) for the full list of 98 working sources and 5 disabled ones.
 
 ## Development
 
