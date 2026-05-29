@@ -17,3 +17,5 @@ package-lock.json
 .playwright-mcp/
 docs/technical_architecture.md
 .superpowers/
+deploy.sh
+docs/oracle_deployment.md

@@ -64,7 +64,6 @@ if (process.env.VERCEL) {
     },
   }
 } else {
-  // Local Node server: serve under /omni_trends basePath
   nitroOption.baseURL = "/omni_trends"
 }
 
