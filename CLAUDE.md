@@ -49,10 +49,6 @@ import * as x from "glob:./sources/{*.ts,**/index.ts}"
 - **interval**：源内容更新频率（微博 2min，Solidot 60min），间隔内直接返缓存
 - **TTL**：固定 30min，TTL 外或带 `?latest` 参数才重新抓取
 
-### 认证
-
-`server/middleware/auth.ts`：未配 `G_CLIENT_ID` / `G_CLIENT_SECRET` / `JWT_SECRET` 时自动禁用登录，但 `/api/s`、`/api/mcp` 等数据接口仍可匿名访问。
-
 ## 目录结构要点
 
 ```
@@ -71,7 +67,6 @@ server/
   utils/fetch.ts        # myFetch 封装（含代理支持）
   getters.ts            # glob 自动注册
   database/cache.ts     # 缓存 CRUD
-  middleware/auth.ts    # JWT 认证
 
 src/
   components/column/    # 新闻栏目组件
@@ -97,9 +92,6 @@ curl -s "http://localhost:20193/api/s?id={source_id}"
 | 变量 | 必填 | 说明 |
 |------|------|------|
 | `PORT` | 否 | 默认 3000，本项目用 20193 |
-| `G_CLIENT_ID` | 否 | GitHub OAuth |
-| `G_CLIENT_SECRET` | 否 | GitHub OAuth |
-| `JWT_SECRET` | 否 | JWT 签名 |
 | `PRODUCTHUNT_API_TOKEN` | 否 | Product Hunt 数据源 |
 
 ## 当前工作状态
