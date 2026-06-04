@@ -8,7 +8,6 @@ const queryClient = new QueryClient()
 
 const router = createRouter({
   routeTree,
-  basepath: "/omni_trends",
   context: {
     queryClient,
   },

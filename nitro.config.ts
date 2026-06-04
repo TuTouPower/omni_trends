@@ -63,8 +63,6 @@ if (process.env.VERCEL) {
       connector: "bun-sqlite",
     },
   }
-} else {
-  nitroOption.baseURL = "/omni_trends"
 }
 
 export default function () {

@@ -1,6 +1,6 @@
 # OmniTrends
 
-> 最后更新：2026-05-22
+> 最后更新：2026-06-05
 
 实时热点新闻聚合阅读器，从 98 个数据源抓取热门新闻统一展示。
 
@@ -77,13 +77,13 @@ src/
 
 ## 构建与运行
 
-统一路由前缀 `/omni_trends`，三个环境一致：
+无 base path 前缀，所有环境直接根路径访问：
 
 | 环境 | 访问地址 | 配置 |
 |------|----------|------|
-| 本地 | `http://localhost:20193/omni_trends/` | Nitro `baseURL` + Vite `base` |
-| Oracle Docker | `http://64.181.252.105/omni_trends/` | nginx proxy_pass 带前缀 |
-| Cloudflare Pages | `omni-trends.pages.dev/omni_trends/` | CF 路由规则 |
+| 本地 | `http://localhost:20193/` | 直接启动 |
+| Oracle Docker | `https://trends.zzzkkkccc.site/` | Cloudflare Tunnel → localhost:20229 |
+| Cloudflare Pages | `https://omni-trends.pages.dev/` | CF Pages 直部署 |
 
 ```bash
 pnpm build && PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
@@ -144,7 +144,7 @@ curl -s "http://localhost:20193/api/s?id={source_id}"
 - RSS 解析用 `rss2json.ts`；ofetch 自动解析 XML 会出错时需加 `responseType: "text"`
 - 部分网站有 TLS 指纹检测（如 freebuf），ofetch/undici 会被拦截，需用 `node:https` 模块绕过
 - 数据源禁用方式：在 `shared/pre-sources.ts` 对应源配置中加 `disable: true`
-- 测试单个源时需带 basePath：`curl http://localhost:20193/omni_trends/api/s?id={id}&latest`
+- 测试单个源时直接根路径：`curl http://localhost:20193/api/s?id={id}&latest`
 - 缓存存储在 `.data/db.sqlite3`，清除特定源缓存：`sqlite3 .data/db.sqlite3 "DELETE FROM cache WHERE id='xxx';"`
 
 ## 参考文档
