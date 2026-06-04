@@ -51,7 +51,7 @@ cd /opt/omni_trends
 sudo docker compose pull
 sudo docker compose up -d
 for i in $(seq 1 15); do
-    if curl -sf -o /dev/null http://127.0.0.1:20229/omni_trends/; then
+    if curl -sf -o /dev/null http://127.0.0.1:20229/; then
         echo "[Oracle] 启动成功 (${i}s)"
         exit 0
     fi
@@ -69,8 +69,8 @@ deploy_local() {
   sleep 1
   nohup node --env-file=.env.server dist/output/server/index.mjs > /tmp/omnitrends-local.log 2>&1 &
   for i in $(seq 1 10); do
-    if curl -sf -o /dev/null http://localhost:20193/omni_trends/ 2>/dev/null; then
-      echo "[本地] 启动成功 http://localhost:20193/omni_trends/"
+    if curl -sf -o /dev/null http://localhost:20193/ 2>/dev/null; then
+      echo "[本地] 启动成功 http://localhost:20193/"
       return 0
     fi
     sleep 1
@@ -93,9 +93,9 @@ wait $PID_LOCAL || { echo "[本地] 失败"; FAIL=1; }
 echo ""
 if [ $FAIL -eq 0 ]; then
   echo "========== 三端部署全部完成 =========="
-  echo "  Cloudflare: https://omni-trends.pages.dev/omni_trends/"
-  echo "  Oracle:     http://$SSH_HOST/omni_trends/"
-  echo "  本地:       http://localhost:20193/omni_trends/"
+  echo "  Cloudflare: https://omni-trends.pages.dev/"
+  echo "  Oracle:     https://trends.zzzkkkccc.site/"
+  echo "  本地:       http://localhost:20193/"
 else
   echo "========== 部分部署失败 =========="
   exit 1

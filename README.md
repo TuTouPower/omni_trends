@@ -4,7 +4,7 @@
 
 实时热点新闻聚合阅读器，汇集全球 98 个数据源的热门新闻统一展示。
 
-**在线访问**: http://zzzkkkccc.site/omni_trends/
+**在线访问**: https://trends.zzzkkkccc.site/
 
 [Forked from NewsNow](https://github.com/ourongxing/newsnow)，在此基础上扩展了更多数据源、代理支持和 bug 修复。
 
@@ -13,7 +13,7 @@
 - **98 个数据源**，覆盖国内媒体、国际媒体、科技、财经
 - **代理支持** — `.env.server` 中配置 `HTTPS_PROXY` 走代理（国内访问国外源必需）
 - **深色/浅色模式** 切换
-- **统一路由前缀** `/omni_trends`，兼容本地、Docker、Cloudflare Pages
+- **Cloudflare Tunnel** 子域名直连容器，无需 nginx
 
 ## 快速开始
 
@@ -23,7 +23,7 @@ pnpm build
 PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
 
-访问 http://localhost:20193/omni_trends/
+访问 http://localhost:20193/
 
 ## 配置
 
@@ -52,9 +52,10 @@ bash deploy.sh
 
 | 环境 | 地址 |
 |------|------|
-| 线上 | http://zzzkkkccc.site/omni_trends/ |
-| Oracle | http://64.181.252.105/omni_trends/ |
-| 本地 | http://localhost:20193/omni_trends/ |
+| 线上 (Tunnel) | https://trends.zzzkkkccc.site/ |
+| Cloudflare Pages | https://omni-trends.pages.dev/ |
+| Oracle (直连) | http://64.181.252.105/ |
+| 本地 | http://localhost:20193/ |
 
 ## 技术栈
 
@@ -83,7 +84,7 @@ PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 
 1. 在 `shared/pre-sources.ts` 定义元信息
 2. 在 `server/sources/{name}.ts` 创建 getter
-3. 重新构建测试：`curl http://localhost:20193/omni_trends/api/s?id={name}&latest`
+3. 重新构建测试：`curl http://localhost:20193/api/s?id={name}&latest`
 
 ## 致谢
 
