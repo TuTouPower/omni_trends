@@ -50,7 +50,14 @@ if [ -z "$RUN_ID" ]; then
   RUN_ID=$(gh run list --limit 1 --json databaseId --jq '.[0].databaseId')
 fi
 
-gh run watch "$RUN_ID" --exit-status 2>&1 | tail -3
+gh run watch "$RUN_ID" 2>&1 | tail -3
+
+# 检查 job conclusion（忽略 post-step 噪声）
+JOB_CONCLUSION=$(gh run view "$RUN_ID" --json jobs --jq '.jobs[0].conclusion')
+if [ "$JOB_CONCLUSION" != "success" ]; then
+  echo "[CI] 镜像构建失败 (job: $JOB_CONCLUSION)"
+  exit 1
+fi
 echo "[CI] 镜像构建完成"
 
 # ========== [4/4] Oracle + 本地同时部署 ==========
@@ -63,7 +70,7 @@ deploy_oracle() {
 set -euo pipefail
 cd /opt/omni_trends
 sudo docker compose pull
-sudo docker compose up -d
+sudo docker compose up -d --force-recreate
 for i in $(seq 1 15); do
     if curl -sf -o /dev/null http://127.0.0.1:20229/; then
         echo "[Oracle] 启动成功 (${i}s)"
