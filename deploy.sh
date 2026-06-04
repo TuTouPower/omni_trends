@@ -34,8 +34,22 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 git push
 
-RUN_ID=$(gh run list --limit 1 --json databaseId --jq '.[0].databaseId')
-echo "等待 CI 构建 (run $RUN_ID)..."
+COMMIT_SHA=$(git rev-parse HEAD)
+echo "等待 CI 构建 (commit ${COMMIT_SHA:0:7})..."
+
+# 等 CI run 出现（最多 30s）
+RUN_ID=""
+for i in $(seq 1 6); do
+  RUN_ID=$(gh run list --limit 5 --json databaseId,headSha --jq ".[] | select(.headSha==\"$COMMIT_SHA\") | .databaseId")
+  if [ -n "$RUN_ID" ]; then break; fi
+  sleep 5
+done
+
+if [ -z "$RUN_ID" ]; then
+  echo "未找到 CI run，回退到最新 run"
+  RUN_ID=$(gh run list --limit 1 --json databaseId --jq '.[0].databaseId')
+fi
+
 gh run watch "$RUN_ID" --exit-status 2>&1 | tail -3
 echo "[CI] 镜像构建完成"
 
