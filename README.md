@@ -2,7 +2,7 @@
 
 ![](/public/logo.png)
 
-实时热点新闻聚合阅读器，汇集全球 98 个数据源的热门新闻统一展示。
+实时热点新闻聚合阅读器，汇集全球 100+ 个数据源的热门新闻统一展示。
 
 **在线访问**: https://trends.zzzkkkccc.site/
 
@@ -10,10 +10,11 @@
 
 ## 特性
 
-- **98 个数据源**，覆盖国内媒体、国际媒体、科技、财经
+- **100+ 个数据源**，覆盖国内媒体、国际媒体、科技、财经
 - **代理支持** — `.env.server` 中配置 `HTTPS_PROXY` 走代理（国内访问国外源必需）
 - **深色/浅色模式** 切换
 - **Cloudflare Tunnel** 子域名直连容器，无需 nginx
+- **PWA 支持** — 可安装为桌面应用
 
 ## 快速开始
 
@@ -30,12 +31,19 @@ PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 复制 `example.env.server` 为 `.env.server`：
 
 ```env
-PORT=20193
-HTTPS_PROXY=http://127.0.0.1:7897
-HTTP_PROXY=http://127.0.0.1:7897
+G_CLIENT_ID=
+G_CLIENT_SECRET=
+JWT_SECRET=
 INIT_TABLE=true
 ENABLE_CACHE=true
 PRODUCTHUNT_API_TOKEN=
+```
+
+在 `.env.server` 中额外配置端口和代理（不入 example）：
+```env
+PORT=20193
+HTTPS_PROXY=http://127.0.0.1:7897
+HTTP_PROXY=http://127.0.0.1:7897
 ```
 
 代理可选，但访问国际源（Reddit、HackerNews、BBC 等）需要。
