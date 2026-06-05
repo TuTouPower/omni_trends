@@ -1,6 +1,6 @@
 # Cloudflare Pages 部署指南
 
-在线预览：https://omni-trends.pages.dev/omni_trends/
+在线预览：https://omni-trends.pages.dev/
 
 ## 前提
 
@@ -79,14 +79,16 @@ npx wrangler pages deploy dist/output/public --branch main --commit-dirty=true
 
 设置后重新部署一次使环境变量生效。
 
-## 本地 vs 线上的 basePath 差异
+## 本地 vs 线上
 
-| 环境 | Vite base | Nitro baseURL | 访问方式 |
-|------|-----------|---------------|----------|
-| 本地（Node） | `/omni_trends/` | `/omni_trends` | `localhost:20193/omni_trends/` |
-| Cloudflare Pages | `/` | 无 | `omni-trends.pages.dev/omni_trends/`（CF 平台处理） |
+所有环境统一使用根路径 `/` 访问，无 basePath 前缀：
 
-`vite.config.ts` 和 `nitro.config.ts` 通过 `process.env.CF_PAGES` 自动切换配置。
+| 环境 | Vite base | 访问方式 |
+|------|-----------|----------|
+| 本地（Node） | `/` | `localhost:20193/` |
+| Cloudflare Pages | `/` | `omni-trends.pages.dev/` |
+
+`vite.config.ts` 中 `base: "/"` 硬编码，所有环境统一。
 
 ## 踩坑记录
 
@@ -160,10 +162,10 @@ if (v.disable === "cf" && process.env.CF_PAGES) {
 |------|------|
 | `wrangler.toml` | Wrangler 配置（D1 绑定、兼容性标志） |
 | `nitro.config.ts` | Nitro 构建配置（`CF_PAGES` 环境检测） |
-| `vite.config.ts` | Vite 构建配置（`CF_PAGES` 时 base `/`，本地 `/omni_trends/`） |
+| `vite.config.ts` | Vite 构建配置（base: "/"，所有环境统一） |
 | `shared/pre-sources.ts` | 数据源定义（`disable: "cf"` 控制） |
 
 ## 访问地址
 
-- 生产环境：https://omni-trends.pages.dev/omni_trends/
+- 生产环境：https://omni-trends.pages.dev/
 - 自定义域名：在 Cloudflare Dashboard → Pages → Custom domains 中绑定

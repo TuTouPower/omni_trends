@@ -2,7 +2,7 @@
 
 > 最后更新：2026-06-05
 
-实时热点新闻聚合阅读器，从 98 个数据源抓取热门新闻统一展示。
+实时热点新闻聚合阅读器，从 100+ 个数据源抓取热门新闻统一展示。
 
 ## 技术栈
 
@@ -60,11 +60,15 @@ shared/
   metadata.ts           # 栏目分类（国内/国际/科技/财经/关注/实时/最热）
 
 server/
-  sources/              # 数据源实现（40+ 个 .ts 文件）
+  sources/              # 数据源实现（85 个 .ts 文件）
   api/s/index.ts        # 核心接口：GET /api/s?id=xxx
   utils/source.ts       # defineRSSHubSource / defineRSSSource / proxySource
   utils/rss2json.ts     # RSS 解析器
   utils/fetch.ts        # myFetch 封装（含代理支持）
+  utils/crypto.ts       # 加密工具
+  utils/date.ts         # 日期工具
+  utils/base64.ts       # Base64 编码
+  utils/logger.ts       # 日志工具
   getters.ts            # glob 自动注册
   database/cache.ts     # 缓存 CRUD
 

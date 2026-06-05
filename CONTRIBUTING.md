@@ -133,7 +133,7 @@ For completely new sources, create a new file in `/server/sources/` named after 
 After adding or modifying source files, run the following command to regenerate the necessary files:
 
 ```bash
-npm run presource
+pnpm run presource
 ```
 
 This will update the `sources.json` file and any other necessary configuration.
@@ -144,13 +144,19 @@ Build and start the server to test your changes:
 
 ```bash
 pnpm build
-PORT=3000 node --env-file .env.server dist/output/server/index.mjs
+PORT=20193 node --env-file=.env.server dist/output/server/index.mjs
 ```
 
 > [!Warning]
-> `pnpm dev` has known compatibility issues. Always use `pnpm build` + `node dist/output/server/index.mjs`.
+> `pnpm dev` has known compatibility issues. Always use `pnpm build` + `node --env-file=.env.server dist/output/server/index.mjs`.
 
 Access the application in your browser and ensure that your new source is appearing and working correctly.
+
+You can also test a single source directly:
+
+```bash
+curl "http://localhost:20193/api/s?id={source_id}&latest"
+```
 
 ### 6. Commit Your Changes
 
