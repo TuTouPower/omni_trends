@@ -14,6 +14,7 @@ export class Timer {
   private start!: number
   private remaining: number
   private callback: () => MaybePromise<void>
+  private paused = false
 
   constructor(callback: () => MaybePromise<void>, delay: number) {
     this.callback = callback
@@ -22,11 +23,14 @@ export class Timer {
   }
 
   pause() {
+    if (this.paused) return
+    this.paused = true
     clearTimeout(this.timerId)
     this.remaining -= Date.now() - this.start
   }
 
   resume() {
+    this.paused = false
     this.start = Date.now()
     clearTimeout(this.timerId)
     this.timerId = setTimeout(this.callback, this.remaining)
