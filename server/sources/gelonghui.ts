@@ -9,19 +9,18 @@ export default defineSource(async () => {
   const news: NewsItem[] = []
   $main.each((_, el) => {
     const a = $(el).find(".detail-right>a")
-    // https://www.kzaobao.com/shiju/20241002/170659.html
     const url = a.attr("href")
     const title = a.find("h2").text()
     const info = $(el).find(".time > span:nth-child(1)").text()
     // 第三个 p
-    const relatieveTime = $(el).find(".time > span:nth-child(3)").text()
-    if (url && title && relatieveTime) {
+    const relativeTime = $(el).find(".time > span:nth-child(3)").text()
+    if (url && title && relativeTime) {
       news.push({
         url: baseURL + url,
         title,
         id: url,
         extra: {
-          date: parseRelativeDate(relatieveTime, "Asia/Shanghai").valueOf(),
+          date: parseRelativeDate(relativeTime, "Asia/Shanghai").valueOf(),
           info,
         },
       })
