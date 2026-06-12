@@ -66,11 +66,11 @@ function words() {
     },
     {
       startAt: dayjs().add(1, "days"),
-      regExp: /^(?:明[天日]|y(?:ester)?day?)(.*)/,
+      regExp: /^(?:明[天日]|tomorrow)(.*)/,
     },
     {
       startAt: dayjs().add(2, "days"),
-      regExp: /^(?:[后後][天日]|(?:the)?d(?:ay)?a(?:fter)?t(?:omrrow)?)(.*)/,
+      regExp: /^(?:[后後][天日]|(?:the)?(?:day)?a(?:fter)?t(?:omorrow)?)(.*)/,
     },
   ]
 }
