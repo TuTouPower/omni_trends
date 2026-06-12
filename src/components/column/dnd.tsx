@@ -115,11 +115,11 @@ function DndWrapper({ items, setItems, isSingleColumn, children }: PropsWithChil
   isSingleColumn: boolean
 }>) {
   const onDropTargetChange = useCallback(({ location, source }: BaseEventPayload<ElementDragType>) => {
-    const traget = location.current.dropTargets[0]
-    if (!traget?.data || !source?.data) return
-    const closestEdgeOfTarget = extractClosestEdge(traget.data)
+    const target = location.current.dropTargets[0]
+    if (!target?.data || !source?.data) return
+    const closestEdgeOfTarget = extractClosestEdge(target.data)
     const fromIndex = items.indexOf(source.data.id as SourceID)
-    const toIndex = items.indexOf(traget.data.id as SourceID)
+    const toIndex = items.indexOf(target.data.id as SourceID)
     if (fromIndex === toIndex || fromIndex === -1 || toIndex === -1) return
     const update = reorderWithEdge({
       list: items,
