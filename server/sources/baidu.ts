@@ -14,7 +14,8 @@ interface Res {
 export default defineSource(async () => {
   const rawData: string = await myFetch(`https://top.baidu.com/board?tab=realtime`)
   const jsonStr = (rawData as string).match(/<!--s-data:(.*?)-->/s)
-  const data: Res = JSON.parse(jsonStr![1])
+  if (!jsonStr?.[1]) throw new Error("Cannot parse baidu page data")
+  const data: Res = JSON.parse(jsonStr[1])
 
   return data.data.cards[0].content.filter(k => !k.isTop).map((k) => {
     return {
