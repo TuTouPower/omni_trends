@@ -9,7 +9,6 @@ export default defineSource(async () => {
   const news: NewsItem[] = []
   $main.each((_, el) => {
     const a = $(el).find(".titleline a").first()
-    // const url = a.attr("href")
     const title = a.text()
     const id = $(el).attr("id")
     const score = $(`#score_${id}`).text()
