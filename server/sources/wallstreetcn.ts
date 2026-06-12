@@ -73,7 +73,7 @@ const hot = defineSource(async () => {
     .map((h) => {
       return {
         id: h.id,
-        title: h.title!,
+        title: h.title || h.content_text,
         url: h.uri,
       }
     })
