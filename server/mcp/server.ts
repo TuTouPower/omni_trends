@@ -28,7 +28,7 @@ export function getServer() {
 
       const res: SourceResponse = await $fetch(`/api/s?id=${id}`)
       return {
-        content: res.items.slice(0, count).map((item) => {
+        content: res.items.slice(0, n).map((item) => {
           return {
             text: `[${item.title}](${item.url})`,
             type: "text",
