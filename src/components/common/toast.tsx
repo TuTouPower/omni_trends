@@ -54,22 +54,22 @@ function Item({ info }: { info: ToastItem }) {
     return () => timer.current?.clear()
   })
 
-  const [hoverd, setHoverd] = useState(false)
+  const [hovered, setHovered] = useState(false)
   useEffect(() => {
-    if (hoverd) {
+    if (hovered) {
       timer.current?.pause()
     } else {
       timer.current?.resume()
     }
-  }, [hoverd])
+  }, [hovered])
 
   return (
     <li
       className={$(
         "bg-base rounded-lg shadow-xl relative",
       )}
-      onMouseEnter={() => setHoverd(true)}
-      onMouseLeave={() => setHoverd(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <div className={$(
         `bg-${color}-500 dark:bg-${color} bg-op-40! p2 backdrop-blur-5 rounded-lg w-full`,
@@ -77,7 +77,7 @@ function Item({ info }: { info: ToastItem }) {
       )}
       >
         {
-          hoverd
+          hovered
             ? <button type="button" className={`i-ph:x-circle color-${color}-500 i-ph:info`} onClick={() => hidden(false)} />
             : <span className={`i-ph:info color-${color}-500 `} />
         }
