@@ -137,7 +137,9 @@ const hotSearch = defineSource(async () => {
     },
   })
 
-  return resp?.data?.card?.children_list?.list?.cards?.map((item) => {
+  const cards = resp?.data?.card?.children_list?.list?.cards
+  if (!cards?.length) throw new Error("Cannot fetch qqvideo hot search")
+  return cards.map((item) => {
     return {
       id: item?.id,
       title: item?.params?.title,
