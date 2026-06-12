@@ -44,7 +44,9 @@ const hotRankList = defineSource(async () => {
     headers: { Referer: "https://www.iqiyi.com" },
   })
 
-  return resp?.items[0]?.video[0]?.data.map((item) => {
+  const items = resp?.items[0]?.video[0]?.data
+  if (!items?.length) throw new Error("Cannot fetch iqiyi hot ranklist")
+  return items.map((item) => {
     return {
       id: item.entity_id,
       title: item.title,
