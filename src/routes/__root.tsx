@@ -20,9 +20,9 @@ export const Route = createRootRouteWithContext<{
 
 function NotFoundComponent() {
   const nav = Route.useNavigate()
-  nav({
-    to: "/",
-  })
+  useEffect(() => {
+    nav({ to: "/" })
+  }, [nav])
 }
 
 function RootComponent() {
