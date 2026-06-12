@@ -22,7 +22,8 @@ export default defineSource(async () => {
   const url = "https://wap.newsmth.net/wap/api/hot/global"
   const res: NewsmthResponse = await myFetch(url)
 
-  return res.data!.topics.map((v) => {
+  if (!res.data?.topics?.length) throw new Error("Cannot fetch newsmth hot topics")
+  return res.data.topics.map((v) => {
     const post = v.article
     return {
       id: v.firstArticleId,
