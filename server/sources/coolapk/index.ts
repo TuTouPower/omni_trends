@@ -33,7 +33,6 @@ export default defineSource({
       url: `https://www.coolapk.com${i.url}`,
       extra: {
         info: i.targetRow?.subTitle,
-        // date: new Date(i.dateline * 1000).getTime(),
       },
     }))
   },
