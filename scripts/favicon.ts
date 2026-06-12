@@ -15,7 +15,7 @@ async function downloadImage(url: string, outputPath: string, id: string) {
       throw new Error(`${id}: could not fetch ${url}, status: ${response.status}`)
     }
 
-    const image = await (await fetch(url)).arrayBuffer()
+    const image = await response.arrayBuffer()
     fs.writeFileSync(outputPath, Buffer.from(image))
     consola.success(`${id}: downloaded successfully.`)
   } catch (error) {
