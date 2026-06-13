@@ -13,11 +13,3 @@ export function typeSafeObjectFromEntries<
 export function typeSafeObjectEntries<T extends Record<PropertyKey, unknown>>(obj: T): { [K in keyof T]: [K, T[K]] }[keyof T][] {
   return Object.entries(obj) as { [K in keyof T]: [K, T[K]] }[keyof T][]
 }
-
-export function typeSafeObjectKeys<T extends Record<PropertyKey, unknown>>(obj: T): (keyof T)[] {
-  return Object.keys(obj) as (keyof T)[]
-}
-
-export function typeSafeObjectValues<T extends Record<PropertyKey, unknown>>(obj: T): T[keyof T][] {
-  return Object.values(obj) as T[keyof T][]
-}

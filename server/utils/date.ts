@@ -141,8 +141,6 @@ function toDurations(matches: string[]) {
   return durations
 }
 
-export const parseDate = (date: string | number, ...options: any) => dayjs(date, ...options).toDate()
-
 export function parseRelativeDate(date: string, timezone: string = "UTC") {
   if (date === "刚刚") return new Date()
   // 预处理日期字符串 date
