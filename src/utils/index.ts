@@ -1,14 +1,6 @@
 import type { MaybePromise } from "@shared/type.util"
 import { $fetch } from "ofetch"
 
-export function safeParseString(str: any) {
-  try {
-    return JSON.parse(str)
-  } catch {
-    return ""
-  }
-}
-
 export class Timer {
   private timerId?: any
   private start!: number
